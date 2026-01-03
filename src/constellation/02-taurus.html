@@ -3,62 +3,97 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>02 — Taurus</title>
+    <title>02 — Taurus (Taureau)</title>
     <link rel="stylesheet" href="../styles.css" />
 </head>
 <body>
 
 <main class="page">
+
+    <!-- ===== TOP BAR ===== -->
     <div class="topbar">
         <a class="back" href="../index.html">← Menu</a>
-        <h1>02 — Taurus</h1>
+        <h1>01 — Taurus (Taureau)</h1>
     </div>
 
-    <div class="board" data-mode="order">
-        <svg class="overlay" viewBox="0 0 1000 1000" preserveAspectRatio="none">
+    <!-- ===== POPUP (contenu 100% HTML) ===== -->
+    <div
+            id="popup"
+            class="popup"
+            role="status"
+            aria-live="polite"
+
+            data-info-title="♉ Taurus — Le Taureau"
+            data-info-text="Le Taureau est une constellation du zodiaque. Elle est reconnaissable par un alignement d’étoiles formant une sorte d’arc. Relie les étoiles dans l’ordre pour reconstruire sa forme."
+
+            data-success-title="✅ Constellation complétée"
+            data-success-text="Bravo 🎉 Tu as correctement relié toutes les étoiles du Bélier. Tu peux maintenant passer à la constellation suivante."
+
+            data-answer-title="👁️ Constellation affichée"
+            data-answer-text="Le tracé officiel de la constellation est affiché. Compare-le avec ton dessin."
+    >
+        <div class="row">
+            <div style="flex:1">
+                <div class="title" id="popupTitle">Info</div>
+                <div class="text" id="popupText">...</div>
+            </div>
+            <button
+                    class="close"
+                    id="popupClose"
+                    type="button"
+                    aria-label="Fermer"
+            >
+                ✕
+            </button>
+        </div>
+    </div>
+
+    <!-- ===== BOARD ===== -->
+    <div class="board" data-mode="free">
+        <svg
+                class="overlay"
+                viewBox="0 0 1000 1000"
+                preserveAspectRatio="none"
+        >
             <path id="playerPath"></path>
             <path id="constellationPath" class="answer" opacity="0"></path>
         </svg>
 
-        <!-- POINTS — Taurus -->
-        <button class="dot" data-n="1" style="left:30%; top:55%;">1</button>
-        <button class="dot" data-n="2" style="left:40%; top:45%;">2</button>
-        <button class="dot" data-n="3" style="left:52%; top:38%;">3</button>
-        <button class="dot" data-n="4" style="left:64%; top:34%;">4</button>
-        <button class="dot" data-n="5" style="left:72%; top:44%;">5</button>
-        <button class="dot" data-n="6" style="left:62%; top:54%;">6</button>
-        <button class="dot" data-n="7" style="left:48%; top:62%;">7</button>
-
-        <!-- cornes -->
-        <button class="dot" data-n="8" style="left:58%; top:20%;">8</button>
-        <button class="dot" data-n="9" style="left:76%; top:18%;">9</button>
+        <!-- ⭐ ÉTOILES -->
+        <button class="dot" data-n="1" style="left:60%; top:10%;">1</button>
+        <button class="dot" data-n="2" style="left:65%; top:30%;">2</button>
+        <button class="dot" data-n="3" style="left:48%; top:40%;">3</button>
+        <button class="dot" data-n="4" style="left:35%; top:20%;">4</button>
+        <button class="dot" data-n="5" style="left:67.5%; top:70%;">5 & 7</button>
+        <button class="dot" data-n="6" style="left:95%; top:55%;">6</button>
+        <button class="dot" data-n="8" style="left:40%; top:65%;">8</button>
     </div>
 
+    <!-- ===== ACTIONS ===== -->
     <div class="actions">
         <button id="undo" type="button">Annuler</button>
         <button id="reset" type="button">Reset</button>
         <button id="toggleAnswer" type="button">Afficher la constellation</button>
-        <!-- tu mettras 03 quand elle existera -->
-        <a class="next" href="03-gemini.html">Suivant →</a>
+        <a class="next" href="02-taurus.html">Suivant →</a>
     </div>
+
 </main>
 
+<!-- ===== CONFIG DES SEGMENTS (LOGIQUE UNIQUEMENT) ===== -->
 <script>
     window.CONSTELLATION_SEGMENTS = [
-        // tête
-        [1,2],
-        [2,3],
-        [3,4],
-        [4,5],
-        [5,6],
-        [6,7],
-        [7,1],
-
-        // cornes
-        [4,8],
-        [5,9]
+        [1, 2],
+        [2, 3],
+        [3, 4],
+        [4, 5],
+        [5, 6],
+        [6, 5],
+        [5, 8]
     ];
 </script>
+
+<!-- ===== MOTEUR DU JEU (GÉNÉRIQUE) ===== -->
 <script src="../app.js"></script>
+
 </body>
 </html>
