@@ -1,0 +1,53 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #f5f7fb;
+    text-align: center;
+}
+
+.board {
+    position: relative;
+    width: 600px;
+    height: 600px;
+    margin: 20px auto;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,.15);
+}
+
+/* SVG lignes */
+.overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+#path {
+    fill: none;
+    stroke: black;
+    stroke-width: 4;
+    stroke-linecap: round;
+}
+
+/* Points */
+.dot {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: black;
+    color: white;
+    border: none;
+    font-size: 11px;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+}
+
+.dot.selected {
+    background: white;
+    color: black;
+    border: 2px solid black;
+}
+
+.actions {
+    margin-top: 10px;
+}
