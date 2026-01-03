@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>02 — Taurus</title>
+    <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+
+<main class="page">
+    <div class="topbar">
+        <a class="back" href="../index.html">← Menu</a>
+        <h1>02 — Taurus</h1>
+    </div>
+
+    <div class="board" data-mode="order">
+        <svg class="overlay" viewBox="0 0 1000 1000" preserveAspectRatio="none">
+            <path id="playerPath"></path>
+            <path id="constellationPath" class="answer" opacity="0"></path>
+        </svg>
+
+        <!-- POINTS — Taurus -->
+        <button class="dot" data-n="1" style="left:30%; top:55%;">1</button>
+        <button class="dot" data-n="2" style="left:40%; top:45%;">2</button>
+        <button class="dot" data-n="3" style="left:52%; top:38%;">3</button>
+        <button class="dot" data-n="4" style="left:64%; top:34%;">4</button>
+        <button class="dot" data-n="5" style="left:72%; top:44%;">5</button>
+        <button class="dot" data-n="6" style="left:62%; top:54%;">6</button>
+        <button class="dot" data-n="7" style="left:48%; top:62%;">7</button>
+
+        <!-- cornes -->
+        <button class="dot" data-n="8" style="left:58%; top:20%;">8</button>
+        <button class="dot" data-n="9" style="left:76%; top:18%;">9</button>
+    </div>
+
+    <div class="actions">
+        <button id="undo" type="button">Annuler</button>
+        <button id="reset" type="button">Reset</button>
+        <button id="toggleAnswer" type="button">Afficher la constellation</button>
+        <!-- tu mettras 03 quand elle existera -->
+        <a class="next" href="03-gemini.html">Suivant →</a>
+    </div>
+</main>
+
+<script>
+    window.CONSTELLATION_SEGMENTS = [
+        // tête
+        [1,2],
+        [2,3],
+        [3,4],
+        [4,5],
+        [5,6],
+        [6,7],
+        [7,1],
+
+        // cornes
+        [4,8],
+        [5,9]
+    ];
+</script>
+<script src="../app.js"></script>
+</body>
+</html>

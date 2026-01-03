@@ -1,33 +1,20 @@
 <!doctype html>
 <html lang="fr">
 <head>
-    <meta charset="utf-8">
-    <title>Relie les points</title>
-    <link rel="stylesheet" href="index.css">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Constellations</title>
+    <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+<main class="page">
+    <h1>🌟 Jeu des Constellations</h1>
+    <p>Cliquez sur les étoiles pour tracer les constellations. Reliez les points dans l'ordre pour reproduire la forme de chaque constellation !</p>
 
-<h1>Relie les points</h1>
-
-<div class="board">
-    <!-- SVG pour dessiner les lignes -->
-    <svg class="overlay" viewBox="0 0 1000 1000">
-        <path id="path"></path>
-    </svg>
-
-    <!-- POINTS DÉFINIS ICI -->
-    <button class="dot" data-n="1" style="left:50%; top:10%;">1</button>
-    <button class="dot" data-n="2" style="left:60%; top:15%;">2</button>
-    <button class="dot" data-n="3" style="left:55%; top:25%;">3</button>
-    <button class="dot" data-n="4" style="left:65%; top:30%;">4</button>
-    <button class="dot" data-n="5" style="left:50%; top:40%;">5</button>
-</div>
-
-<div class="actions">
-    <button id="undo">Annuler</button>
-    <button id="reset">Reset</button>
-</div>
-
-<script src="first-img.js"></script>
+    <div class="grid">
+        <a class="card" href="constellation/01-aries.html">01 — Aries (Bélier)</a>
+        <a class="card" href="constellation/02-taurus.html">02 — Taurus (Taureau)</a>
+    </div>
+</main>
 </body>
 </html>

@@ -1,53 +1,98 @@
-body {
-    font-family: Arial, sans-serif;
-    background: #f5f7fb;
-    text-align: center;
+:root { --dot: 20px; --line: 4; }
+
+*{ box-sizing:border-box; }
+body{ margin:0; font-family:system-ui, Arial; background:#070b1a; color:#fff; }
+
+.page{ max-width:980px; margin:20px auto; padding:0 16px 30px; }
+.topbar{ display:flex; align-items:center; gap:12px; }
+.back{ color:#cfe3ff; text-decoration:none; }
+.back:hover{ text-decoration:underline; }
+
+.board{
+    position:relative;
+    width:min(720px, 100%);
+    aspect-ratio: 1 / 1;
+    margin:14px 0;
+    background: radial-gradient(circle at 30% 20%, rgba(255,255,255,.08), transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(255,255,255,.06), transparent 55%),
+    #050818;
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius:16px;
+    overflow:hidden;
 }
 
-.board {
-    position: relative;
-    width: 600px;
-    height: 600px;
-    margin: 20px auto;
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0,0,0,.15);
+.overlay{ position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
+
+#playerPath{
+    fill:none; stroke:white; stroke-width: var(--line);
+    stroke-linecap:round; stroke-linejoin:round;
 }
 
-/* SVG lignes */
-.overlay {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
+#constellationPath.answer{
+    fill:none; stroke: rgba(140,200,255,1);
+    stroke-width: 5;
+    stroke-linecap:round; stroke-linejoin:round;
+    filter: drop-shadow(0 0 6px rgba(140,200,255,.6));
 }
 
-#path {
-    fill: none;
-    stroke: black;
-    stroke-width: 4;
-    stroke-linecap: round;
-}
-
-/* Points */
-.dot {
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: black;
-    color: white;
-    border: none;
-    font-size: 11px;
+.dot{
+    position:absolute;
+    width: var(--dot); height: var(--dot);
+    border-radius: 999px;
     transform: translate(-50%, -50%);
-    cursor: pointer;
+    border:0;
+    background:#fff;
+    color:#000;
+    font-weight:700;
+    font-size:11px;
+    cursor:pointer;
+    transition: all 0.2s ease;
 }
 
-.dot.selected {
-    background: white;
-    color: black;
-    border: 2px solid black;
+.dot:hover{
+    transform: translate(-50%, -50%) scale(1.2);
+    box-shadow: 0 0 10px rgba(255,255,255,0.6);
 }
 
-.actions {
-    margin-top: 10px;
+.dot.selected{
+    background: transparent;
+    color:#fff;
+    outline: 2px solid #fff;
 }
+
+/* Point actif (dernier cliqué) */
+.dot.last{
+    background: #ffd700;
+    color:#000;
+    outline: 3px solid #ffd700;
+    box-shadow: 0 0 15px rgba(255,215,0,0.8);
+}
+
+.actions{ display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+button{
+    border-radius:10px;
+    border:1px solid rgba(255,255,255,.18);
+    background: rgba(255,255,255,.06);
+    color:#fff;
+    padding:8px 12px;
+    cursor:pointer;
+}
+button:hover{ background: rgba(255,255,255,.10); }
+.next{ margin-left:auto; color:#cfe3ff; text-decoration:none; }
+.next:hover{ text-decoration:underline; }
+
+.grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap:12px;
+}
+.card{
+    display:block;
+    padding:14px;
+    border-radius:14px;
+    text-decoration:none;
+    color:#fff;
+    border:1px solid rgba(255,255,255,.12);
+    background: rgba(255,255,255,.06);
+}
+.card:hover{ background: rgba(255,255,255,.10); }
