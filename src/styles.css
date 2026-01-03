@@ -37,7 +37,7 @@ body{ margin:0; font-family:system-ui, Arial; background:#070b1a; color:#fff; }
 
 .dot{
     position:absolute;
-    width: var(--dot); height: var(--dot);
+    /*width: var(--dot); height: var(--dot);*/
     border-radius: 999px;
     transform: translate(-50%, -50%);
     border:0;
@@ -96,3 +96,62 @@ button:hover{ background: rgba(255,255,255,.10); }
     background: rgba(255,255,255,.06);
 }
 .card:hover{ background: rgba(255,255,255,.10); }
+
+/* ===== Popup (entre titre et board) ===== */
+.popup {
+    margin: 14px 0 10px;
+    padding: 12px 14px;
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,.14);
+    background: rgba(255,255,255,.08);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 30px rgba(0,0,0,.25);
+
+    display: none; /* caché par défaut */
+    opacity: 0;
+    transform: translateY(-6px);
+    transition: opacity .25s ease, transform .25s ease;
+}
+
+.popup.show {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.popup .title {
+    font-weight: 800;
+    margin-bottom: 4px;
+    letter-spacing: .2px;
+}
+
+.popup.success {
+    border-color: rgba(140, 255, 180, .35);
+    background: rgba(140, 255, 180, .10);
+}
+
+.popup.info {
+    border-color: rgba(140, 200, 255, .35);
+    background: rgba(140, 200, 255, .10);
+}
+
+.popup .close {
+    margin-left: auto;
+    border: 0;
+    background: transparent;
+    color: rgba(255,255,255,.85);
+    cursor: pointer;
+    font-size: 18px;
+    line-height: 1;
+}
+
+.popup .row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.popup .text {
+    color: rgba(255,255,255,.92);
+    line-height: 1.35;
+}

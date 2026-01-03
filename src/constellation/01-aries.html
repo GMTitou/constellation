@@ -3,64 +3,95 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>01 — Aries</title>
+    <title>01 — Aries (Bélier)</title>
     <link rel="stylesheet" href="../styles.css" />
 </head>
 <body>
 
 <main class="page">
+
+    <!-- ===== TOP BAR ===== -->
     <div class="topbar">
         <a class="back" href="../index.html">← Menu</a>
         <h1>01 — Aries (Bélier)</h1>
     </div>
 
+    <!-- ===== POPUP (contenu 100% HTML) ===== -->
+    <div
+            id="popup"
+            class="popup"
+            role="status"
+            aria-live="polite"
+
+            data-info-title="♈ Aries — Le Bélier"
+            data-info-text="Le Bélier est une constellation du zodiaque. Elle est reconnaissable par un alignement d’étoiles formant une sorte d’arc. Relie les étoiles dans l’ordre pour reconstruire sa forme."
+
+            data-success-title="✅ Constellation complétée"
+            data-success-text="Bravo 🎉 Tu as correctement relié toutes les étoiles du Bélier. Tu peux maintenant passer à la constellation suivante."
+
+            data-answer-title="👁️ Constellation affichée"
+            data-answer-text="Le tracé officiel de la constellation est affiché. Compare-le avec ton dessin."
+    >
+        <div class="row">
+            <div style="flex:1">
+                <div class="title" id="popupTitle">Info</div>
+                <div class="text" id="popupText">...</div>
+            </div>
+            <button
+                    class="close"
+                    id="popupClose"
+                    type="button"
+                    aria-label="Fermer"
+            >
+                ✕
+            </button>
+        </div>
+    </div>
+
+    <!-- ===== BOARD ===== -->
     <div class="board" data-mode="free">
-        <svg class="overlay" viewBox="0 0 1000 1000" preserveAspectRatio="none">
+        <svg
+                class="overlay"
+                viewBox="0 0 1000 1000"
+                preserveAspectRatio="none"
+        >
             <path id="playerPath"></path>
             <path id="constellationPath" class="answer" opacity="0"></path>
         </svg>
 
-        <!--
-            Constellation Aries en forme d'ARC (arc de tir)
-            Forme : arc bien bombé + corde qui le traverse
-        -->
-
-        <!-- Extrémités de l'arc et de la corde -->
-        <button class="dot" data-n="1" style="left:15%; top:5%;">1</button>
-        <button class="dot" data-n="4" style="left:70%; top:20%;">4</button>
-
-        <!-- Points de l'arc (bien bombés vers l'extérieur) -->
-        <button class="dot" data-n="2" style="left:25%; top:65%;">2</button>
-        <button class="dot" data-n="3" style="left:50%; top:45%;">3</button>
-
-        <!-- La pointe de la flèche -->
-        <button class="dot" data-n="5" style="left:85%; top:35%;">5</button>
+        <!-- ⭐ ÉTOILES -->
+        <button class="dot" data-n="1" style="left:10%; top:70%;">1</button>
+        <button class="dot" data-n="2" style="left:20%; top:62%;">2</button>
+        <button class="dot" data-n="3" style="left:70%; top:45%;">3</button>
+        <button class="dot" data-n="4" style="left:25%; top:25%;">4</button>
+        <button class="dot" data-n="6" style="left:85%; top:60%;">6</button>
+        <button class="dot" data-n="7" style="left:85%; top:65%;">7</button>
     </div>
 
+    <!-- ===== ACTIONS ===== -->
     <div class="actions">
         <button id="undo" type="button">Annuler</button>
         <button id="reset" type="button">Reset</button>
         <button id="toggleAnswer" type="button">Afficher la constellation</button>
         <a class="next" href="02-taurus.html">Suivant →</a>
     </div>
+
 </main>
 
+<!-- ===== CONFIG DES SEGMENTS (LOGIQUE UNIQUEMENT) ===== -->
 <script>
-    // Forme d'ARC d'Aries (arc de tir à l'arc)
     window.CONSTELLATION_SEGMENTS = [
-        // La corde (ligne droite de 1 à 4)
-        [1, 4],
-
-        // L'arc (ligne courbe : 1 → 2 → 3 → 4)
         [1, 2],
         [2, 3],
         [3, 4],
-
-        // La pointe de la flèche
-        [4, 5]
+        [4, 3],
+        [3, 6],
+        [6, 7]
     ];
 </script>
 
+<!-- ===== MOTEUR DU JEU (GÉNÉRIQUE) ===== -->
 <script src="../app.js"></script>
+
 </body>
 </html>
