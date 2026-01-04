@@ -1,74 +1,179 @@
-:root { --dot: 20px; --line: 4; }
+:root {
+    --dot: 10px;
+    --line: 4px;
+}
 
 *{ box-sizing:border-box; }
-body{ margin:0; font-family:system-ui, Arial; background:#070b1a; color:#fff; }
 
-.page{ max-width:980px; margin:20px auto; padding:0 16px 30px; }
-.topbar{ display:flex; align-items:center; gap:12px; }
-.back{ color:#cfe3ff; text-decoration:none; }
+body{
+    margin:0;
+    font-family:system-ui, Arial;
+    background:#070b1a;
+    color:#fff;
+}
+
+.page{
+    max-width:980px;
+    margin:20px auto;
+    padding:0 16px 30px;
+}
+
+.topbar{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.back{
+    color:#cfe3ff;
+    text-decoration:none;
+}
+
 .back:hover{ text-decoration:underline; }
 
+/* ===== BOARD ===== */
 .board{
     position:relative;
     width:min(720px, 100%);
     aspect-ratio: 1 / 1;
     margin:14px 0;
-    background: radial-gradient(circle at 30% 20%, rgba(255,255,255,.08), transparent 50%),
-    radial-gradient(circle at 80% 70%, rgba(255,255,255,.06), transparent 55%),
-    #050818;
+    background:
+            radial-gradient(circle at 30% 20%, rgba(255,255,255,.08), transparent 50%),
+            radial-gradient(circle at 80% 70%, rgba(255,255,255,.06), transparent 55%),
+            #050818;
     border: 1px solid rgba(255,255,255,.12);
     border-radius:16px;
     overflow:hidden;
 }
 
-.overlay{ position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
+.overlay{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    pointer-events:none;
+}
 
 #playerPath{
-    fill:none; stroke:white; stroke-width: var(--line);
-    stroke-linecap:round; stroke-linejoin:round;
+    fill:none;
+    stroke:white;
+    stroke-width: var(--line);
+    stroke-linecap:round;
+    stroke-linejoin:round;
 }
 
 #constellationPath.answer{
-    fill:none; stroke: rgba(140,200,255,1);
+    fill:none;
+    stroke: rgba(140,200,255,1);
     stroke-width: 5;
-    stroke-linecap:round; stroke-linejoin:round;
+    stroke-linecap:round;
+    stroke-linejoin:round;
     filter: drop-shadow(0 0 6px rgba(140,200,255,.6));
 }
 
+/* ===================================================== */
+/* ===== DOTS (étoiles) : point + numéro extérieur ===== */
+/* ===================================================== */
+
 .dot{
     position:absolute;
-    /*width: var(--dot); height: var(--dot);*/
-    border-radius: 999px;
     transform: translate(-50%, -50%);
     border:0;
-    background:#fff;
-    color:#000;
-    font-weight:700;
-    font-size:11px;
-    cursor:pointer;
-    transition: all 0.2s ease;
-}
-
-.dot:hover{
-    transform: translate(-50%, -50%) scale(1.2);
-    box-shadow: 0 0 10px rgba(255,255,255,0.6);
-}
-
-.dot.selected{
     background: transparent;
-    color:#fff;
-    outline: 2px solid #fff;
+    cursor:pointer;
+    padding:0;
+    width:1px;
+    height:1px;
+    /* Styles pour le numéro */
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.85);
+    text-shadow:
+            0 0 4px rgba(0,0,0,0.8),
+            0 1px 2px rgba(0,0,0,0.6);
+    white-space: nowrap;
+    line-height: 1;
 }
 
-/* Point actif (dernier cliqué) */
-.dot.last{
-    background: #ffd700;
-    color:#000;
-    outline: 3px solid #ffd700;
-    box-shadow: 0 0 15px rgba(255,215,0,0.8);
+/* Conteneur du texte positionné à droite */
+.dot::after {
+    content: '';
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
 }
 
-.actions{ display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+/* Le texte du bouton lui-même */
+.dot {
+    text-indent: 0;
+    overflow: visible;
+}
+
+/* Alternative : wrapper le texte dans un span et le positionner */
+/* Ou utiliser cette approche plus simple : */
+.dot {
+    text-align: left;
+    text-indent: 18px; /* Décale uniquement le texte */
+}
+
+.dot::before{
+    content:"";
+    position:absolute;
+    left:0;
+    top:0;
+    width: var(--dot);
+    height: var(--dot);
+    border-radius:999px;
+    background: #fff;
+    box-shadow: 0 0 10px rgba(255,255,255,0.5);
+    transform: translate(-50%, -50%);
+    transition: transform .2s ease, box-shadow .2s ease, background .2s ease, outline .2s ease;
+    z-index: -1;
+}
+
+/* Hover */
+.dot:hover::before{
+    transform: translate(-50%, -50%) scale(1.25);
+    box-shadow: 0 0 14px rgba(255,215,0,.65);
+}
+
+/* Hover du texte */
+.dot:hover{
+    color: rgba(255,255,255,1);
+    text-shadow:
+            0 0 6px rgba(255,255,255),
+            0 1px 2px rgba(0,0,0,0.8);
+}
+
+/* Points connectés (avec trait tracé) restent gros */
+.dot.connected::before{
+    transform: translate(-50%, -50%) scale(1.2);
+    box-shadow: 0 0 12px rgba(255,255,255,.65);
+}
+
+/* Sélectionné : blanc */
+.dot.selected::before{
+    background:#fff;
+    box-shadow: 0 0 14px rgba(255,255,255,.55);
+}
+
+/* Dernier point cliqué : blanc */
+.dot.last::before{
+    background:#fff;
+    outline: 3px solid #fff;
+    box-shadow: 0 0 18px rgba(255,255,255);
+}
+
+/* ===== ACTIONS ===== */
+.actions{
+    display:flex;
+    gap:10px;
+    align-items:center;
+    flex-wrap:wrap;
+}
+
 button{
     border-radius:10px;
     border:1px solid rgba(255,255,255,.18);
@@ -77,15 +182,26 @@ button{
     padding:8px 12px;
     cursor:pointer;
 }
-button:hover{ background: rgba(255,255,255,.10); }
-.next{ margin-left:auto; color:#cfe3ff; text-decoration:none; }
+
+button:hover{
+    background: rgba(255,255,255,.10);
+}
+
+.next{
+    margin-left:auto;
+    color:#cfe3ff;
+    text-decoration:none;
+}
+
 .next:hover{ text-decoration:underline; }
 
+/* ===== GRID MENU ===== */
 .grid{
     display:grid;
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
     gap:12px;
 }
+
 .card{
     display:block;
     padding:14px;
@@ -95,63 +211,85 @@ button:hover{ background: rgba(255,255,255,.10); }
     border:1px solid rgba(255,255,255,.12);
     background: rgba(255,255,255,.06);
 }
+
 .card:hover{ background: rgba(255,255,255,.10); }
 
-/* ===== Popup (entre titre et board) ===== */
-.popup {
-    margin: 14px 0 10px;
-    padding: 12px 14px;
-    border-radius: 14px;
-    border: 1px solid rgba(255,255,255,.14);
+/* ===== POPUP ===== */
+.popup{
+    margin:14px 0 10px;
+    padding:12px 14px;
+    border-radius:14px;
+    border:1px solid rgba(255,255,255,.14);
     background: rgba(255,255,255,.08);
     backdrop-filter: blur(10px);
     box-shadow: 0 10px 30px rgba(0,0,0,.25);
-
-    display: none; /* caché par défaut */
-    opacity: 0;
+    display:none;
+    opacity:0;
     transform: translateY(-6px);
     transition: opacity .25s ease, transform .25s ease;
 }
 
-.popup.show {
-    display: block;
-    opacity: 1;
+.popup.show{
+    display:block;
+    opacity:1;
     transform: translateY(0);
 }
 
-.popup .title {
-    font-weight: 800;
-    margin-bottom: 4px;
-    letter-spacing: .2px;
+.popup .title{
+    font-weight:800;
+    margin-bottom:4px;
+    letter-spacing:.2px;
 }
 
-.popup.success {
-    border-color: rgba(140, 255, 180, .35);
-    background: rgba(140, 255, 180, .10);
+.popup.success{
+    border-color: rgba(140,255,180,.35);
+    background: rgba(140,255,180,.10);
 }
 
-.popup.info {
-    border-color: rgba(140, 200, 255, .35);
-    background: rgba(140, 200, 255, .10);
+.popup.info{
+    border-color: rgba(140,200,255,.35);
+    background: rgba(140,200,255,.10);
 }
 
-.popup .close {
-    margin-left: auto;
-    border: 0;
-    background: transparent;
+.popup .row{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+}
+
+.popup .close{
+    margin-left:auto;
+    border:0;
+    background:transparent;
     color: rgba(255,255,255,.85);
-    cursor: pointer;
-    font-size: 18px;
-    line-height: 1;
+    cursor:pointer;
+    font-size:18px;
+    line-height:1;
 }
 
-.popup .row {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-}
-
-.popup .text {
+.popup .text{
     color: rgba(255,255,255,.92);
-    line-height: 1.35;
+    line-height:1.35;
+}
+
+/* Ajoute à la fin de ton fichier CSS */
+
+@keyframes starAppear {
+    from {
+        opacity: 0;
+        transform: scale(0);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes twinkle {
+    0%, 100% {
+        opacity: 0.3;
+    }
+    50% {
+        opacity: 1;
+    }
 }

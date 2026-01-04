@@ -38,6 +38,54 @@
         return `${x}-${y}`;
     };
 
+    // ===== Ciel étoilé =====
+    const createStarryBackground = () => {
+        // Supprime les anciennes étoiles si elles existent
+        const oldStars = board.querySelectorAll(".star");
+        oldStars.forEach(star => star.remove());
+
+        // Génère 100 petites étoiles
+        const starCount = 100;
+        for (let i = 0; i < starCount; i++) {
+            const star = document.createElement("div");
+            star.className = "star";
+
+            // Position aléatoire
+            const x = Math.random() * 100;
+            const y = Math.random() * 100;
+
+            // Taille aléatoire (entre 1px et 4px)
+            const size = Math.random() * 3 + 1;
+
+            // Opacité aléatoire pour variation
+            const opacity = Math.random() * 0.5 + 0.3;
+
+            // Délai d'animation aléatoire
+            const delay = Math.random() * 2;
+
+            star.style.cssText = `
+                position: absolute;
+                left: ${x}%;
+                top: ${y}%;
+                width: ${size}px;
+                height: ${size}px;
+                background: white;
+                border-radius: 50%;
+                opacity: 0;
+                animation: starAppear 0.8s ease-out ${delay}s forwards, twinkle 3s ease-in-out ${delay}s infinite;
+                pointer-events: none;
+                z-index: 0;
+            `;
+
+            board.appendChild(star);
+        }
+    };
+
+    const removeStarryBackground = () => {
+        const stars = board.querySelectorAll(".star");
+        stars.forEach(star => star.remove());
+    };
+
     // ===== Popup (contenu lu depuis le HTML) =====
     const readPopupContent = (kind) => {
         // kind: "info" | "success" | "answer"
@@ -68,16 +116,23 @@
     // ===== Player drawing state =====
     let clicked = [];
     let answerVisible = false;
-    let popupLocked = false; // évite de ré-afficher 50 fois
+    let popupLocked = false;
+    let starsShown = false; // ✨ Suivi de l'affichage des étoiles
 
     const updateDotStates = () => {
-        dots.forEach((d) => d.classList.remove("selected", "last"));
+        // Retire toutes les classes
+        dots.forEach((d) => d.classList.remove("selected", "last", "connected"));
 
+        // Ajoute "connected" aux points qui font partie du chemin
         clicked.forEach((n) => {
             const el = getDotByN(n);
-            if (el) el.classList.add("selected");
+            if (el) {
+                el.classList.add("selected");
+                el.classList.add("connected");
+            }
         });
 
+        // Le dernier point cliqué
         const last = getDotByN(clicked[clicked.length - 1]);
         if (last) last.classList.add("last");
     };
@@ -165,10 +220,12 @@
             updateDotStates();
             updatePlayerPath();
 
-            // ✅ Quand c'est complété -> popup DESCRIPTION (info)
+            // ✅ Quand c'est complété -> popup + CIEL ÉTOILÉ
             if (!popupLocked && isCompleted()) {
                 popupLocked = true;
-                showPopup("info", "info"); // ✅ description
+                starsShown = true;
+                createStarryBackground(); // ✨ Affiche les étoiles
+                showPopup("info", "info");
             }
         });
     });
@@ -177,12 +234,20 @@
         clicked.pop();
         updateDotStates();
         updatePlayerPath();
+
+        // Retire les étoiles si la constellation n'est plus complète
+        if (starsShown && !isCompleted()) {
+            starsShown = false;
+            removeStarryBackground();
+        }
     });
 
     resetBtn?.addEventListener("click", () => {
         clicked = [];
         popupLocked = false;
+        starsShown = false;
         hidePopup();
+        removeStarryBackground(); // ✨ Retire les étoiles
         updateDotStates();
         updatePlayerPath();
     });
@@ -191,8 +256,7 @@
         const next = !answerVisible;
         setAnswerVisible(next);
 
-        // ✅ Quand on affiche la constellation -> popup DESCRIPTION (info)
-        if (next) showPopup("info", "info"); // ✅ description
+        if (next) showPopup("info", "info");
         else hidePopup();
     });
 
