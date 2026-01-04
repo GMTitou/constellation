@@ -4,18 +4,72 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Constellations</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ouma+Latin:wght@400;600;800&family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+<div id="stars-container"></div>
 <main class="page">
-    <h1>🌟 Jeu des Constellations</h1>
-    <p>Cliquez sur les étoiles pour tracer les constellations. Reliez les points dans l'ordre pour reproduire la forme de chaque constellation !</p>
+    <h1 class="title">Constellations</h1>
+    <p class="sub-title">A vous de relier les étoiles pour découvrir les constellations qui s'y cachent.</p>
 
-    <div class="grid">
-        <a class="card" href="constellation/01-aries.html">01 — Aries (Bélier)</a>
-        <a class="card" href="constellation/02-taurus.html">02 — Taurus (Taureau)</a>
-        <a class="card" href="constellation/03-gemini.html">03 — Gemini (Gémeaux)</a>
+    <div class="links">
+<!--        <span class="number">01</span>-->
+<!--        <span class="separator">—</span>-->
+        <a class="link-name" href="constellation/01-aries.html">Aries</a>
+
+<!--        <span class="number">02</span>-->
+<!--        <span class="separator">—</span>-->
+        <a class="link-name" href="constellation/02-taurus.html">Taurus</a>
+
+<!--        <span class="number">03</span>-->
+<!--        <span class="separator">—</span>-->
+        <a class="link-name" href="constellation/03-gemini.html">Gemini</a>
     </div>
 </main>
+
+<script>
+    // Génération du fond étoilé
+    const starsContainer = document.getElementById('stars-container');
+    const starCount = 150; // Nombre d'étoiles
+
+    for (let i = 0; i < starCount; i++) {
+        const star = document.createElement('div');
+        star.className = 'bg-star';
+
+        // Position aléatoire
+        const x = Math.random() * 100;
+        const y = Math.random() * 100;
+
+        // Taille aléatoire (1px à 4px)
+        const size = Math.random() * 3 + 1;
+
+        // Opacité aléatoire
+        const opacity = Math.random() * 0.6 + 0.2;
+
+        // Durée d'animation aléatoire (scintillement)
+        const twinkleDuration = Math.random() * 4 + 2;
+        const twinkleDelay = Math.random() * 5;
+
+        // Durée de mouvement aléatoire
+        const moveDuration = Math.random() * 20 + 15;
+        const moveDelay = Math.random() * 5;
+
+        star.style.cssText = `
+        left: ${x}%;
+        top: ${y}%;
+        width: ${size}px;
+        height: ${size}px;
+        opacity: ${opacity};
+        animation:
+            twinkle ${twinkleDuration}s ease-in-out ${twinkleDelay}s infinite,
+            float ${moveDuration}s ease-in-out ${moveDelay}s infinite;
+    `;
+
+        starsContainer.appendChild(star);
+    }
+</script>
 </body>
 </html>
