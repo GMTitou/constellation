@@ -16,6 +16,9 @@
     const popupText = document.getElementById("popupText");
     const popupClose = document.getElementById("popupClose");
 
+    // ⭐ Container global (sur toute la page)
+    const starsContainer = document.getElementById("stars-container");
+
     // Constellation definition (segments)
     const requiredSegments = (window.CONSTELLATION_SEGMENTS || []).map(([a, b]) => [
         Number(a),
@@ -38,57 +41,56 @@
         return `${x}-${y}`;
     };
 
-    // ===== Ciel étoilé =====
-    const createStarryBackground = () => {
-        // Supprime les anciennes étoiles si elles existent
-        const oldStars = board.querySelectorAll(".star");
-        oldStars.forEach(star => star.remove());
+    // ===== ÉTOILES (SUR TOUTE LA PAGE) =====
+    const clearGlobalStars = () => {
+        if (!starsContainer) return;
+        starsContainer.innerHTML = "";
+        starsContainer.classList.remove("show");
+    };
 
-        // Génère 100 petites étoiles
-        const starCount = 100;
+    const createGlobalStars = () => {
+        if (!starsContainer) return;
+
+        // Nettoie avant de regénérer
+        starsContainer.innerHTML = "";
+
+        const starCount = 180;
         for (let i = 0; i < starCount; i++) {
             const star = document.createElement("div");
-            star.className = "star";
+            star.className = "bg-star";
 
-            // Position aléatoire
             const x = Math.random() * 100;
             const y = Math.random() * 100;
 
-            // Taille aléatoire (entre 1px et 4px)
-            const size = Math.random() * 3 + 1;
+            const size = Math.random() * 3 + 1; // 1px à 4px
+            const opacity = Math.random() * 0.6 + 0.2;
 
-            // Opacité aléatoire pour variation
-            const opacity = Math.random() * 0.5 + 0.3;
+            const twinkleDuration = Math.random() * 4 + 2;
+            const twinkleDelay = Math.random() * 3;
 
-            // Délai d'animation aléatoire
-            const delay = Math.random() * 2;
+            const moveDuration = Math.random() * 20 + 15;
+            const moveDelay = Math.random() * 4;
 
             star.style.cssText = `
-                position: absolute;
-                left: ${x}%;
-                top: ${y}%;
-                width: ${size}px;
-                height: ${size}px;
-                background: white;
-                border-radius: 50%;
-                opacity: 0;
-                animation: starAppear 0.8s ease-out ${delay}s forwards, twinkle 3s ease-in-out ${delay}s infinite;
-                pointer-events: none;
-                z-index: 0;
-            `;
+        left:${x}%;
+        top:${y}%;
+        width:${size}px;
+        height:${size}px;
+        opacity:${opacity};
+        animation:
+          twinkle ${twinkleDuration}s ease-in-out ${twinkleDelay}s infinite,
+          float ${moveDuration}s ease-in-out ${moveDelay}s infinite;
+      `;
 
-            board.appendChild(star);
+            starsContainer.appendChild(star);
         }
-    };
 
-    const removeStarryBackground = () => {
-        const stars = board.querySelectorAll(".star");
-        stars.forEach(star => star.remove());
+        // active l'affichage (transition)
+        starsContainer.classList.add("show");
     };
 
     // ===== Popup (contenu lu depuis le HTML) =====
     const readPopupContent = (kind) => {
-        // kind: "info" | "success" | "answer"
         if (!popup) return { title: "", text: "" };
         return {
             title: popup.dataset[`${kind}Title`] || "",
@@ -117,13 +119,11 @@
     let clicked = [];
     let answerVisible = false;
     let popupLocked = false;
-    let starsShown = false; // ✨ Suivi de l'affichage des étoiles
+    let starsShown = false;
 
     const updateDotStates = () => {
-        // Retire toutes les classes
         dots.forEach((d) => d.classList.remove("selected", "last", "connected"));
 
-        // Ajoute "connected" aux points qui font partie du chemin
         clicked.forEach((n) => {
             const el = getDotByN(n);
             if (el) {
@@ -132,7 +132,6 @@
             }
         });
 
-        // Le dernier point cliqué
         const last = getDotByN(clicked[clicked.length - 1]);
         if (last) last.classList.add("last");
     };
@@ -213,19 +212,22 @@
         dot.addEventListener("click", () => {
             const n = Number(dot.dataset.n);
             if (!n) return;
-
             if (clicked.length && clicked[clicked.length - 1] === n) return;
 
             clicked.push(n);
             updateDotStates();
             updatePlayerPath();
 
-            // ✅ Quand c'est complété -> popup + CIEL ÉTOILÉ
+            // ✅ Quand c'est complété -> étoiles sur toute la page + popup
             if (!popupLocked && isCompleted()) {
                 popupLocked = true;
-                starsShown = true;
-                createStarryBackground(); // ✨ Affiche les étoiles
-                showPopup("info", "info");
+
+                if (!starsShown) {
+                    starsShown = true;
+                    createGlobalStars();
+                }
+
+                showPopup("info", "success"); // ✅ mieux : message de réussite
             }
         });
     });
@@ -235,10 +237,12 @@
         updateDotStates();
         updatePlayerPath();
 
-        // Retire les étoiles si la constellation n'est plus complète
+        // Si on casse la constellation -> on enlève les étoiles
         if (starsShown && !isCompleted()) {
             starsShown = false;
-            removeStarryBackground();
+            clearGlobalStars();
+            popupLocked = false; // autorise à re-déclencher
+            hidePopup();
         }
     });
 
@@ -247,20 +251,22 @@
         popupLocked = false;
         starsShown = false;
         hidePopup();
-        removeStarryBackground(); // ✨ Retire les étoiles
+        clearGlobalStars();
         updateDotStates();
         updatePlayerPath();
+        setAnswerVisible(false);
     });
 
     toggleAnswerBtn?.addEventListener("click", () => {
         const next = !answerVisible;
         setAnswerVisible(next);
 
-        if (next) showPopup("info", "info");
+        if (next) showPopup("info", "answer");
         else hidePopup();
     });
 
     // init
+    clearGlobalStars();
     setAnswerVisible(false);
     updateDotStates();
     updatePlayerPath();

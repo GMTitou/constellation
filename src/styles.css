@@ -1,44 +1,83 @@
-:root {
+:root{
     --dot: 10px;
     --line: 4px;
 }
 
-*{
-    box-sizing:border-box;
-}
+*{ box-sizing:border-box; }
 
-h1.title {
-    font-size: 54px;
-    margin-bottom: 0;
-    margin-top: 100px;
-}
-
-.sub-title {
-    text-align: center;
-    width: 500px;
-    margin: 0 auto 50px auto;
-    font-size: 24px;
-    line-height: 34px;
-}
+/* =========================
+   BASE / FOND GLOBAL
+========================= */
 
 body{
     margin:0;
     font-family: 'Ouma Latin', 'Poppins', sans-serif;
     background:#070b1a;
     color:#fff;
+    min-height: 100vh;
 }
 
-/* ===== PAGE PRINCIPALE ===== */
+/* =========================
+   ÉTOILES (SUR TOUTE LA PAGE)
+   -> cachées par défaut, visibles seulement quand "réussi"
+========================= */
+
+#stars-container{
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+
+    /* ✅ caché tant que non réussi */
+    opacity: 0;
+    transition: opacity .5s ease;
+}
+
+#stars-container.show{
+    opacity: 1;
+}
+
+.bg-star{
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    pointer-events: none;
+    box-shadow: 0 0 6px rgba(255,255,255,0.25);
+}
+
+/* Tout le contenu au-dessus des étoiles */
 .page{
+    position: relative;
+    z-index: 1;
     max-width:980px;
     margin:20px auto;
     padding:0 16px 30px;
+}
+
+/* =========================
+   PAGE MENU (index)
+========================= */
+
+h1.title{
+    font-size: 54px;
+    margin: 100px 0 0;
     text-align: center;
 }
 
-/* ===== LIENS MENU ===== */
-.links {
-    display: flex;
+.sub-title{
+    text-align: center;
+    width: min(500px, 100%);
+    margin: 0 auto 50px auto;
+    font-size: 24px;
+    line-height: 34px;
+    opacity: .95;
+}
+
+.links{
+    display:flex;
     flex-direction: column;
     align-items: center;
     gap: 2px;
@@ -46,26 +85,39 @@ body{
     width: fit-content;
 }
 
-/* Liens des noms */
-.link-name {
+.link-name{
     color: white;
     text-decoration: none;
-    transition: all 0.3s ease;
+    transition: all 0.25s ease;
     font-weight: 500;
     font-size: 28px;
     display: inline-block;
     min-width: 250px;
+    text-align: center;
+    padding: 6px 10px;
+    border-radius: 10px;
 }
 
-.link-name:hover {
+.link-name:hover{
+    transform: translateY(-1px);
     font-size: 40px;
 }
 
-/* ===== TOPBAR ===== */
+/* =========================
+   TOPBAR (pages constellations)
+========================= */
+
 .topbar{
     display:flex;
     align-items:center;
     gap:12px;
+    margin-top: 8px;
+}
+
+.topbar h1{
+    margin:0;
+    font-size: 28px;
+    font-weight: 800;
 }
 
 .back{
@@ -77,19 +129,23 @@ body{
     text-decoration:underline;
 }
 
-/* ===== BOARD ===== */
+/* =========================
+   BOARD (zone de jeu) - FONDU DANS LA PAGE
+   -> pas de bordure / pas d’ombre / pas de background différent
+========================= */
+
 .board{
-    position:relative;
-    width:min(720px, 100%);
+    position: relative;
+    width: min(720px, 100%);
     aspect-ratio: 1 / 1;
-    margin:14px 0;
-    background:
-            radial-gradient(circle at 30% 20%, rgba(255,255,255,.08), transparent 50%),
-            radial-gradient(circle at 80% 70%, rgba(255,255,255,.06), transparent 55%),
-            #050818;
-    border: 1px solid rgba(255,255,255,.12);
-    border-radius:16px;
-    overflow:hidden;
+    margin: 14px 0;
+
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+
+    overflow: hidden;
 }
 
 .overlay{
@@ -111,15 +167,15 @@ body{
 #constellationPath.answer{
     fill:none;
     stroke: rgba(140,200,255,1);
-    stroke-width: 5;
+    stroke-width: 5px;
     stroke-linecap:round;
     stroke-linejoin:round;
     filter: drop-shadow(0 0 6px rgba(140,200,255,.6));
 }
 
-/* ===================================================== */
-/* ===== DOTS (étoiles) : point + numéro extérieur ===== */
-/* ===================================================== */
+/* =========================
+   DOTS (étoiles)
+========================= */
 
 .dot{
     position:absolute;
@@ -130,7 +186,7 @@ body{
     padding:0;
     width:1px;
     height:1px;
-    /* Styles pour le numéro */
+
     font-size: 14px;
     font-weight: 600;
     color: rgba(255,255,255,0.85);
@@ -139,23 +195,13 @@ body{
             0 1px 2px rgba(0,0,0,0.6);
     white-space: nowrap;
     line-height: 1;
-    text-indent: 0;
     overflow: visible;
     text-align: left;
-    text-indent: 18px; /* Décale uniquement le texte */
+
+    /* Décale le texte pour qu'il apparaisse à droite du point */
+    text-indent: 18px;
 }
 
-/* Conteneur du texte positionné à droite */
-.dot::after {
-    content: '';
-    position: absolute;
-    left: 18px;
-    top: 50%;
-    transform: translateY(-50%);
-    pointer-events: none;
-}
-
-/* Point blanc par défaut */
 .dot::before{
     content:"";
     position:absolute;
@@ -171,13 +217,11 @@ body{
     z-index: -1;
 }
 
-/* Hover */
 .dot:hover::before{
     transform: translate(-50%, -50%) scale(1.25);
     box-shadow: 0 0 14px rgba(255,215,0,.65);
 }
 
-/* Hover du texte */
 .dot:hover{
     color: rgba(255,255,255,1);
     text-shadow:
@@ -185,26 +229,26 @@ body{
             0 1px 2px rgba(0,0,0,0.8);
 }
 
-/* Points connectés (avec trait tracé) restent gros */
 .dot.connected::before{
     transform: translate(-50%, -50%) scale(1.2);
     box-shadow: 0 0 12px rgba(255,255,255,.65);
 }
 
-/* Sélectionné : blanc */
 .dot.selected::before{
     background:#fff;
     box-shadow: 0 0 14px rgba(255,255,255,.55);
 }
 
-/* Dernier point cliqué : blanc */
 .dot.last::before{
     background:#fff;
     outline: 3px solid #fff;
     box-shadow: 0 0 18px rgba(255,255,255);
 }
 
-/* ===== ACTIONS ===== */
+/* =========================
+   ACTIONS (boutons + suivant)
+========================= */
+
 .actions{
     display:flex;
     gap:10px;
@@ -235,28 +279,10 @@ button:hover{
     text-decoration:underline;
 }
 
-/* ===== GRID MENU ===== */
-.grid{
-    display:grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap:12px;
-}
+/* =========================
+   POPUP
+========================= */
 
-.card{
-    display:block;
-    padding:14px;
-    border-radius:14px;
-    text-decoration:none;
-    color:#fff;
-    border:1px solid rgba(255,255,255,.12);
-    background: rgba(255,255,255,.06);
-}
-
-.card:hover{
-    background: rgba(255,255,255,.10);
-}
-
-/* ===== POPUP ===== */
 .popup{
     margin:14px 0 10px;
     padding:12px 14px;
@@ -314,75 +340,18 @@ button:hover{
     line-height:1.35;
 }
 
-/* ===== ANIMATIONS ÉTOILES ===== */
-@keyframes starAppear {
-    from {
-        opacity: 0;
-        transform: scale(0);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
+/* =========================
+   ANIMATIONS ÉTOILES (GLOBAL)
+========================= */
+
+@keyframes twinkle{
+    0%, 100%{ opacity: 0.2; transform: scale(0.85); }
+    50%     { opacity: 1;   transform: scale(1.15); }
 }
 
-@keyframes twinkle {
-    0%, 100% {
-        opacity: 0.3;
-    }
-    50% {
-        opacity: 1;
-    }
-}
-
-/* ===== FOND ÉTOILÉ (PAGE D'ACCUEIL) ===== */
-#stars-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    pointer-events: none;
-    z-index: 0;
-}
-
-.bg-star {
-    position: absolute;
-    background: white;
-    border-radius: 50%;
-    pointer-events: none;
-}
-
-.page {
-    position: relative;
-    z-index: 1;
-}
-
-/* Animation de scintillement pour fond étoilé */
-@keyframes twinkle {
-    0%, 100% {
-        opacity: 0.2;
-        transform: scale(0.8);
-    }
-    50% {
-        opacity: 1;
-        transform: scale(1.2);
-    }
-}
-
-/* Animation de mouvement flottant */
-@keyframes float {
-    0%, 100% {
-        transform: translate(0, 0);
-    }
-    25% {
-        transform: translate(10px, -10px);
-    }
-    50% {
-        transform: translate(-5px, 5px);
-    }
-    75% {
-        transform: translate(-10px, -5px);
-    }
+@keyframes float{
+    0%, 100%{ transform: translate(0, 0); }
+    25%{ transform: translate(10px, -10px); }
+    50%{ transform: translate(-5px, 5px); }
+    75%{ transform: translate(-10px, -5px); }
 }
