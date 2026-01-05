@@ -19,12 +19,6 @@
     // ⭐ Container global (sur toute la page)
     const starsContainer = document.getElementById("stars-container");
 
-    // Constellation definition (segments)
-    const requiredSegments = (window.CONSTELLATION_SEGMENTS || []).map(([a, b]) => [
-        Number(a),
-        Number(b),
-    ]);
-
     // ===== Helpers =====
     const getDotByN = (n) => dots.find((d) => Number(d.dataset.n) === Number(n));
     const percentToViewBox = (pct) => (pct / 100) * 1000;
@@ -41,6 +35,21 @@
         return `${x}-${y}`;
     };
 
+    // =========================================================
+    // ✅ CONSTELLATION SEGMENTS (supporte OU)
+    // - [a,b] => segment obligatoire
+    // - [[a,b],[c,d],...] => au moins UN segment (OU)
+    // =========================================================
+    const requiredRules = (window.CONSTELLATION_SEGMENTS || []).map((item) => {
+        // item = [[a,b],[c,d]] => groupe OU
+        if (Array.isArray(item) && Array.isArray(item[0])) {
+            return item.map(([a, b]) => [Number(a), Number(b)]);
+        }
+        // item = [a,b] => obligatoire
+        const [a, b] = item;
+        return [[Number(a), Number(b)]];
+    });
+
     // ===== ÉTOILES (SUR TOUTE LA PAGE) =====
     const clearGlobalStars = () => {
         if (!starsContainer) return;
@@ -51,7 +60,6 @@
     const createGlobalStars = () => {
         if (!starsContainer) return;
 
-        // Nettoie avant de regénérer
         starsContainer.innerHTML = "";
 
         const starCount = 180;
@@ -62,7 +70,7 @@
             const x = Math.random() * 100;
             const y = Math.random() * 100;
 
-            const size = Math.random() * 3 + 1; // 1px à 4px
+            const size = Math.random() * 3 + 1;
             const opacity = Math.random() * 0.6 + 0.2;
 
             const twinkleDuration = Math.random() * 4 + 2;
@@ -85,7 +93,6 @@
             starsContainer.appendChild(star);
         }
 
-        // active l'affichage (transition)
         starsContainer.classList.add("show");
     };
 
@@ -162,19 +169,18 @@
         return set;
     };
 
-    const computeRequiredSegmentSet = () => {
-        const set = new Set();
-        requiredSegments.forEach(([a, b]) => set.add(segKeyUndirected(a, b)));
-        return set;
-    };
-
+    // ✅ Validation : chaque règle doit être satisfaite
+    // - règle obligatoire : le segment doit exister
+    // - règle OU : au moins 1 segment doit exister
     const isCompleted = () => {
-        const req = computeRequiredSegmentSet();
         const got = computePlayerSegmentSet();
-        for (const key of req) {
-            if (!got.has(key)) return false;
+
+        for (const alternatives of requiredRules) {
+            const ok = alternatives.some(([a, b]) => got.has(segKeyUndirected(a, b)));
+            if (!ok) return false;
         }
-        return req.size > 0;
+
+        return requiredRules.length > 0;
     };
 
     // ===== Answer drawing =====
@@ -182,14 +188,18 @@
         if (!answerPath) return;
 
         let d = "";
-        requiredSegments.forEach(([a, b]) => {
-            const A = getDotByN(a);
-            const B = getDotByN(b);
-            if (!A || !B) return;
 
-            const pA = getDotPos(A);
-            const pB = getDotPos(B);
-            d += `M ${pA.x} ${pA.y} L ${pB.x} ${pB.y} `;
+        // On dessine toutes les possibilités (y compris les OU)
+        requiredRules.forEach((alternatives) => {
+            alternatives.forEach(([a, b]) => {
+                const A = getDotByN(a);
+                const B = getDotByN(b);
+                if (!A || !B) return;
+
+                const pA = getDotPos(A);
+                const pB = getDotPos(B);
+                d += `M ${pA.x} ${pA.y} L ${pB.x} ${pB.y} `;
+            });
         });
 
         answerPath.setAttribute("d", d.trim());
@@ -218,7 +228,6 @@
             updateDotStates();
             updatePlayerPath();
 
-            // ✅ Quand c'est complété -> étoiles sur toute la page + popup
             if (!popupLocked && isCompleted()) {
                 popupLocked = true;
 
@@ -227,7 +236,7 @@
                     createGlobalStars();
                 }
 
-                showPopup("info", "success"); // ✅ mieux : message de réussite
+                showPopup("info", "success");
             }
         });
     });
@@ -237,11 +246,10 @@
         updateDotStates();
         updatePlayerPath();
 
-        // Si on casse la constellation -> on enlève les étoiles
         if (starsShown && !isCompleted()) {
             starsShown = false;
             clearGlobalStars();
-            popupLocked = false; // autorise à re-déclencher
+            popupLocked = false;
             hidePopup();
         }
     });
