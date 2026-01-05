@@ -80,15 +80,15 @@
             const moveDelay = Math.random() * 4;
 
             star.style.cssText = `
-        left:${x}%;
-        top:${y}%;
-        width:${size}px;
-        height:${size}px;
-        opacity:${opacity};
-        animation:
-          twinkle ${twinkleDuration}s ease-in-out ${twinkleDelay}s infinite,
-          float ${moveDuration}s ease-in-out ${moveDelay}s infinite;
-      `;
+                left:${x}%;
+                top:${y}%;
+                width:${size}px;
+                height:${size}px;
+                opacity:${opacity};
+                animation:
+                  twinkle ${twinkleDuration}s ease-in-out ${twinkleDelay}s infinite,
+                  float ${moveDuration}s ease-in-out ${moveDelay}s infinite;
+            `;
 
             starsContainer.appendChild(star);
         }
@@ -105,16 +105,31 @@
         };
     };
 
+    // ✅ Popup pédagogique :
+    // - success => Success puis Info
+    // - answer  => Answer puis Info
+    // - info    => Info seul
     const showPopup = (type, kind) => {
         if (!popup) return;
 
-        const { title, text } = readPopupContent(kind);
+        const main = readPopupContent(kind);
+        const info = readPopupContent("info");
+
+        let finalTitle = main.title;
+        let finalText = main.text;
+
+        if (kind === "success" || kind === "answer") {
+            if (info.title || info.text) {
+                finalTitle = `${main.title} — ${info.title}`.trim();
+                finalText = `${main.text}\n\n${info.text}`.trim();
+            }
+        }
 
         popup.classList.remove("success", "info");
         popup.classList.add(type);
 
-        if (popupTitle) popupTitle.textContent = title;
-        if (popupText) popupText.textContent = text;
+        if (popupTitle) popupTitle.textContent = finalTitle;
+        if (popupText) popupText.textContent = finalText;
 
         popup.classList.add("show");
     };
@@ -236,6 +251,7 @@
                     createGlobalStars();
                 }
 
+                // ✅ Success puis Info
                 showPopup("info", "success");
             }
         });
@@ -269,8 +285,12 @@
         const next = !answerVisible;
         setAnswerVisible(next);
 
-        if (next) showPopup("info", "answer");
-        else hidePopup();
+        if (next) {
+            // ✅ Answer puis Info
+            showPopup("info", "answer");
+        } else {
+            hidePopup();
+        }
     });
 
     // init

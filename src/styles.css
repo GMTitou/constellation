@@ -19,7 +19,7 @@ body{
 
 /* =========================
    ÉTOILES (SUR TOUTE LA PAGE)
-   -> cachées par défaut, visibles seulement quand "réussi"
+   -> cachées par défaut, visibles seulement quand réussi
 ========================= */
 
 #stars-container{
@@ -31,7 +31,6 @@ body{
     pointer-events: none;
     z-index: 0;
 
-    /* ✅ caché tant que non réussi */
     opacity: 0;
     transition: opacity .5s ease;
 }
@@ -48,7 +47,7 @@ body{
     box-shadow: 0 0 6px rgba(255,255,255,0.25);
 }
 
-/* Tout le contenu au-dessus des étoiles */
+/* Tout le contenu au-dessus */
 .page{
     position: relative;
     z-index: 1;
@@ -58,7 +57,7 @@ body{
 }
 
 /* =========================
-   PAGE MENU (index)
+   PAGE MENU
 ========================= */
 
 h1.title{
@@ -104,7 +103,7 @@ h1.title{
 }
 
 /* =========================
-   TOPBAR (pages constellations)
+   TOPBAR
 ========================= */
 
 .topbar{
@@ -130,8 +129,7 @@ h1.title{
 }
 
 /* =========================
-   BOARD (zone de jeu) - FONDU DANS LA PAGE
-   -> pas de bordure / pas d’ombre / pas de background différent
+   BOARD (zone de jeu) - fondu dans la page
 ========================= */
 
 .board{
@@ -198,7 +196,6 @@ h1.title{
     overflow: visible;
     text-align: left;
 
-    /* Décale le texte pour qu'il apparaisse à droite du point */
     text-indent: 18px;
 }
 
@@ -246,7 +243,7 @@ h1.title{
 }
 
 /* =========================
-   ACTIONS (boutons + suivant)
+   ACTIONS
 ========================= */
 
 .actions{
@@ -338,6 +335,9 @@ button:hover{
 .popup .text{
     color: rgba(255,255,255,.92);
     line-height:1.35;
+
+    /* ✅ IMPORTANT pour afficher les \n ajoutés par le JS */
+    white-space: pre-line;
 }
 
 /* =========================
