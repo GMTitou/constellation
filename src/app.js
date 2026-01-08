@@ -12,7 +12,6 @@
 
     // Popup elements
     const popup = document.getElementById("popup");
-    const popupTitle = document.getElementById("popupTitle");
     const popupText = document.getElementById("popupText");
     const popupClose = document.getElementById("popupClose");
 
@@ -98,29 +97,23 @@
 
     // ===== Popup (contenu lu depuis le HTML) =====
     const readPopupContent = (kind) => {
-        if (!popup) return { title: "", text: "" };
+        if (!popup) return { text: "" };
         return {
-            title: popup.dataset[`${kind}Title`] || "",
             text: popup.dataset[`${kind}Text`] || "",
         };
     };
 
-    // ✅ Popup pédagogique :
-    // - success => Success puis Info
-    // - answer  => Answer puis Info
-    // - info    => Info seul
+    // ✅ Popup sans titre
     const showPopup = (type, kind) => {
         if (!popup) return;
 
         const main = readPopupContent(kind);
         const info = readPopupContent("info");
 
-        let finalTitle = main.title;
         let finalText = main.text;
 
         if (kind === "success" || kind === "answer") {
-            if (info.title || info.text) {
-                finalTitle = `${main.title} — ${info.title}`.trim();
+            if (info.text) {
                 finalText = `${main.text}\n\n${info.text}`.trim();
             }
         }
@@ -128,7 +121,6 @@
         popup.classList.remove("success", "info");
         popup.classList.add(type);
 
-        if (popupTitle) popupTitle.textContent = finalTitle;
         if (popupText) popupText.textContent = finalText;
 
         popup.classList.add("show");
@@ -251,8 +243,8 @@
                     createGlobalStars();
                 }
 
-                // ✅ Success puis Info
-                showPopup("info", "success");
+                // ✅ Success sans titre
+                showPopup("success", "success");
             }
         });
     });
@@ -286,7 +278,7 @@
         setAnswerVisible(next);
 
         if (next) {
-            // ✅ Answer puis Info
+            // ✅ Answer sans titre
             showPopup("info", "answer");
         } else {
             hidePopup();

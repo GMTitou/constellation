@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>06 — Virgo (Vierge)</title>
+    <title>Virgo (Vierge)</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,14 +11,12 @@
     <link rel="stylesheet" href="../styles.css" />
 </head>
 <body>
+<!-- Conteneur des étoiles de fond -->
 <div id="stars-container"></div>
-<main class="page">
 
-    <!-- ===== TOP BAR ===== -->
-    <div class="topbar">
-        <a class="back" href="../index.html">← Menu</a>
-        <h1>06 — Virgo (Vierge)</h1>
-    </div>
+<main class="page">
+    <!-- ===== TITRE CENTRÉ ===== -->
+    <h1 class="constellation-title">Virgo</h1>
 
     <!-- ===== POPUP (contenu 100% HTML) ===== -->
     <div
@@ -26,19 +24,12 @@
             class="popup"
             role="status"
             aria-live="polite"
-
-            data-info-title="Virgo — La Vierge"
-            data-info-text="La Vierge est une constellation du zodiaque représentant une jeune femme, souvent associée à la fertilité et aux récoltes. C’est l’une des plus grandes constellations du ciel. En reliant les étoiles dans l’ordre, tu peux reconstruire la silhouette élancée de la constellation de la Vierge."
-
-            data-success-title="Constellation complétée"
-            data-success-text="Bravo ! Tu as correctement relié toutes les étoiles de la constellation de la Vierge. Sa forme est plus étendue et demande de l’observation."
-
-            data-answer-title="Constellation affichée"
+            data-info-text="La Vierge est une constellation du zodiaque représentant une jeune femme, souvent associée à la fertilité et aux récoltes. C'est l'une des plus grandes constellations du ciel. En reliant les étoiles dans l'ordre, tu peux reconstruire la silhouette élancée de la constellation de la Vierge."
+            data-success-text="Bravo ! Tu as correctement relié toutes les étoiles de la constellation de la Vierge. Sa forme est plus étendue et demande de l'observation."
             data-answer-text="Le tracé officiel de la constellation de la Vierge est affiché. Compare-le attentivement avec ton dessin."
     >
         <div class="row">
             <div style="flex:1">
-                <div class="title" id="popupTitle">Info</div>
                 <div class="text" id="popupText">...</div>
             </div>
             <button
@@ -52,7 +43,7 @@
         </div>
     </div>
 
-    <!-- ===== BOARD ===== -->
+    <!-- ===== BOARD (zone de jeu) ===== -->
     <div class="board" data-mode="free">
         <svg
                 class="overlay"
@@ -72,16 +63,20 @@
         <button class="dot" data-n="6" style="left:26%; top:48%;"></button>
         <button class="dot" data-n="7" style="left:37%; top:75%;"></button>
     </div>
+</main>
 
-    <!-- ===== ACTIONS ===== -->
-    <div class="actions">
-        <button id="undo" type="button">Annuler</button>
-        <button id="reset" type="button">Reset</button>
-        <button id="toggleAnswer" type="button">Afficher la constellation</button>
-        <a class="next" href="07-libra.html">Suivant →</a>
+<!-- ===== BANNIÈRE DE NAVIGATION (FIXÉE EN BAS) ===== -->
+<div class="navbar">
+    <a class="nav-btn back-btn" href="../index.html">← Menu</a>
+
+    <div class="nav-actions">
+        <button id="undo" class="nav-btn" type="button">Annuler</button>
+        <button id="reset" class="nav-btn" type="button">Recommencer</button>
+        <button id="toggleAnswer" class="nav-btn" type="button">Afficher la constellation</button>
     </div>
 
-</main>
+    <a class="nav-btn next-btn" href="07-libra.html">Suivant →</a>
+</div>
 
 <!-- ===== CONFIG DES SEGMENTS — VIRGO ===== -->
 <script>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>08 — Scorpio (Scorpion)</title>
+    <title>Scorpio (Scorpion)</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,12 +16,8 @@
 <div id="stars-container"></div>
 
 <main class="page">
-
-    <!-- ===== TOP BAR ===== -->
-    <div class="topbar">
-        <a class="back" href="../index.html">← Menu</a>
-        <h1>08 — Scorpio</h1>
-    </div>
+    <!-- ===== TITRE CENTRÉ ===== -->
+    <h1 class="constellation-title">Scorpio</h1>
 
     <!-- ===== POPUP (contenu 100% HTML) ===== -->
     <div
@@ -29,19 +25,12 @@
             class="popup"
             role="status"
             aria-live="polite"
-
-            data-info-title="Scorpio — Le Scorpion"
-            data-info-text="Le Scorpion est une constellation du zodiaque reconnaissable par sa longue chaîne d’étoiles formant une courbe, représentant le corps et la queue du scorpion. Relie les étoiles dans l’ordre pour reconstruire sa silhouette sinueuse."
-
-            data-success-title="Constellation complétée"
-            data-success-text="Bravo ! Tu as correctement relié toutes les étoiles de la constellation du Scorpion. Sa forme allongée est l’une des plus caractéristiques du ciel nocturne."
-
-            data-answer-title="Constellation affichée"
+            data-info-text="Le Scorpion est une constellation du zodiaque reconnaissable par sa longue chaîne d'étoiles formant une courbe, représentant le corps et la queue du scorpion. Relie les étoiles dans l'ordre pour reconstruire sa silhouette sinueuse."
+            data-success-text="Bravo ! Tu as correctement relié toutes les étoiles de la constellation du Scorpion. Sa forme allongée est l'une des plus caractéristiques du ciel nocturne."
             data-answer-text="Le tracé officiel de la constellation du Scorpion est affiché. Compare-le avec ton dessin et observe la courbure de sa queue."
     >
         <div class="row">
             <div style="flex:1">
-                <div class="title" id="popupTitle">Info</div>
                 <div class="text" id="popupText">...</div>
             </div>
             <button
@@ -55,7 +44,7 @@
         </div>
     </div>
 
-    <!-- ===== BOARD ===== -->
+    <!-- ===== BOARD (zone de jeu) ===== -->
     <div class="board" data-mode="free">
         <svg
                 class="overlay"
@@ -83,16 +72,20 @@
         <button class="dot" data-n="14" style="left:37%; top:86%;"></button>
         <button class="dot" data-n="15" style="left:50%; top:85%;"></button>
     </div>
+</main>
 
-    <!-- ===== ACTIONS ===== -->
-    <div class="actions">
-        <button id="undo" type="button">Annuler</button>
-        <button id="reset" type="button">Reset</button>
-        <button id="toggleAnswer" type="button">Afficher la constellation</button>
-        <a class="next" href="../index.html">Suivant →</a>
+<!-- ===== BANNIÈRE DE NAVIGATION (FIXÉE EN BAS) ===== -->
+<div class="navbar">
+    <a class="nav-btn back-btn" href="../index.html">← Menu</a>
+
+    <div class="nav-actions">
+        <button id="undo" class="nav-btn" type="button">Annuler</button>
+        <button id="reset" class="nav-btn" type="button">Recommencer</button>
+        <button id="toggleAnswer" class="nav-btn" type="button">Afficher la constellation</button>
     </div>
 
-</main>
+    <a class="nav-btn next-btn" href="../index.html">Retour au menu →</a>
+</div>
 
 <!-- ===== CONFIG DES SEGMENTS (LOGIQUE UNIQUEMENT) ===== -->
 <script>
@@ -114,7 +107,6 @@
         [12, 13],
         [13, 14],
         [14, 15],
-
     ];
 </script>
 

@@ -3,21 +3,19 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>03 — Gemini (Gémeaux)</title>
+    <title>Cancer (Crabe)</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Ouma+Latin:wght@400;600;800&family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../styles.css" />
 </head>
 <body>
+<!-- Conteneur des étoiles de fond -->
 <div id="stars-container"></div>
-<main class="page">
 
-    <!-- ===== TOP BAR ===== -->
-    <div class="topbar">
-        <a class="back" href="../index.html">← Menu</a>
-        <h1>04 — Cancer</h1>
-    </div>
+<main class="page">
+    <!-- ===== TITRE CENTRÉ ===== -->
+    <h1 class="constellation-title">Cancer</h1>
 
     <!-- ===== POPUP (contenu 100% HTML) ===== -->
     <div
@@ -25,19 +23,12 @@
             class="popup"
             role="status"
             aria-live="polite"
-
-            data-info-title="Cancer — Le Crabe"
-            data-info-text="Le Cancer est une constellation du zodiaque associée au crabe dans la mythologie. Elle est plus discrète que d’autres constellations et se compose d’étoiles relativement peu lumineuses. En reliant correctement les étoiles, tu peux reconstituer sa forme caractéristique."
-
-            data-success-title="Constellation complétée"
+            data-info-text="Le Cancer est une constellation du zodiaque associée au crabe dans la mythologie. Elle est plus discrète que d'autres constellations et se compose d'étoiles relativement peu lumineuses. En reliant correctement les étoiles, tu peux reconstituer sa forme caractéristique."
             data-success-text="Bravo ! Tu as correctement relié toutes les étoiles du Cancer. Cette constellation est réputée pour être subtile et difficile à repérer dans le ciel."
-
-            data-answer-title="Constellation affichée"
             data-answer-text="Le tracé officiel de la constellation du Cancer est affiché. Observe bien sa forme et compare-la avec ton propre dessin."
     >
         <div class="row">
             <div style="flex:1">
-                <div class="title" id="popupTitle">Info</div>
                 <div class="text" id="popupText">...</div>
             </div>
             <button
@@ -51,7 +42,7 @@
         </div>
     </div>
 
-    <!-- ===== BOARD ===== -->
+    <!-- ===== BOARD (zone de jeu) ===== -->
     <div class="board" data-mode="free">
         <svg
                 class="overlay"
@@ -68,18 +59,21 @@
         <button class="dot" data-n="3" style="left:50%; top:55%;"></button>
         <button class="dot" data-n="4" style="left:65%; top:79%;"></button>
         <button class="dot" data-n="6" style="left:37%; top:73%;"></button>
-
     </div>
-
-    <!-- ===== ACTIONS ===== -->
-    <div class="actions">
-        <button id="undo" type="button">Annuler</button>
-        <button id="reset" type="button">Reset</button>
-        <button id="toggleAnswer" type="button">Afficher la constellation</button>
-        <a class="next" href="05-leo.html">Suivant →</a>
-    </div>
-
 </main>
+
+<!-- ===== BANNIÈRE DE NAVIGATION (FIXÉE EN BAS) ===== -->
+<div class="navbar">
+    <a class="nav-btn back-btn" href="../index.html">← Menu</a>
+
+    <div class="nav-actions">
+        <button id="undo" class="nav-btn" type="button">Annuler</button>
+        <button id="reset" class="nav-btn" type="button">Recommencer</button>
+        <button id="toggleAnswer" class="nav-btn" type="button">Afficher la constellation</button>
+    </div>
+
+    <a class="nav-btn next-btn" href="05-leo.html">Suivant →</a>
+</div>
 
 <!-- ===== CONFIG DES SEGMENTS (LOGIQUE UNIQUEMENT) ===== -->
 <script>

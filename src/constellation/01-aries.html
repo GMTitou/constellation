@@ -3,21 +3,19 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>01 — Aries (Bélier)</title>
+    <title>Aries (Bélier)</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Ouma+Latin:wght@400;600;800&family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../styles.css" />
 </head>
 <body>
+<!-- Conteneur des étoiles de fond -->
 <div id="stars-container"></div>
-<main class="page">
 
-    <!-- ===== TOP BAR ===== -->
-    <div class="topbar">
-        <a class="back" href="../index.html">← Menu</a>
-        <h1>01 — Aries</h1>
-    </div>
+<main class="page">
+    <!-- ===== TITRE CENTRÉ ===== -->
+    <h1 class="constellation-title">Aries</h1>
 
     <!-- ===== POPUP (contenu 100% HTML) ===== -->
     <div
@@ -25,19 +23,12 @@
             class="popup"
             role="status"
             aria-live="polite"
-
-            data-info-title="Aries — Le Bélier"
-            data-info-text="Le Bélier est une constellation du zodiaque. Elle est reconnaissable par un alignement d’étoiles formant une sorte d’arc. Relie les étoiles dans l’ordre pour reconstruire sa forme."
-
-            data-success-title="Constellation complétée"
+            data-info-text="Le Bélier est une constellation du zodiaque. Elle est reconnaissable par un alignement d'étoiles formant une sorte d'arc. Relie les étoiles dans l'ordre pour reconstruire sa forme."
             data-success-text="Bravo ! Tu as correctement relié toutes les étoiles du Bélier. Tu peux maintenant passer à la constellation suivante."
-
-            data-answer-title="Constellation affichée"
             data-answer-text="Le tracé officiel de la constellation est affiché. Compare-le avec ton dessin."
     >
         <div class="row">
             <div style="flex:1">
-                <div class="title" id="popupTitle">Info</div>
                 <div class="text" id="popupText">...</div>
             </div>
             <button
@@ -51,7 +42,7 @@
         </div>
     </div>
 
-    <!-- ===== BOARD ===== -->
+    <!-- ===== BOARD (zone de jeu) ===== -->
     <div class="board" data-mode="free">
         <svg
                 class="overlay"
@@ -70,16 +61,20 @@
         <button class="dot" data-n="6" style="left:85%; top:60%;"></button>
         <button class="dot" data-n="7" style="left:85%; top:65%;"></button>
     </div>
+</main>
 
-    <!-- ===== ACTIONS ===== -->
-    <div class="actions">
-        <button id="undo" type="button">Annuler</button>
-        <button id="reset" type="button">Reset</button>
-        <button id="toggleAnswer" type="button">Afficher la constellation</button>
-        <a class="next" href="02-taurus.html">Suivant →</a>
+<!-- ===== BANNIÈRE DE NAVIGATION (FIXÉE EN BAS) ===== -->
+<div class="navbar">
+    <a class="nav-btn back-btn" href="../index.html">← Menu</a>
+
+    <div class="nav-actions">
+        <button id="undo" class="nav-btn" type="button">Annuler</button>
+        <button id="reset" class="nav-btn" type="button">Recommencer</button>
+        <button id="toggleAnswer" class="nav-btn" type="button">Afficher la constellation</button>
     </div>
 
-</main>
+    <a class="nav-btn next-btn" href="02-taurus.html">Suivant →</a>
+</div>
 
 <!-- ===== CONFIG DES SEGMENTS (LOGIQUE UNIQUEMENT) ===== -->
 <script>
