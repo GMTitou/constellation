@@ -11,70 +11,90 @@
 </head>
 <body>
 <div id="stars-container"></div>
+
 <main class="page">
-    <h1 class="title">Constellations</h1>
-    <p class="sub-title">A vous de relier les étoiles pour découvrir les constellations qui s'y cachent.</p>
+    <!-- Section Hero : Titre et sous-titre centrés -->
+    <section class="hero-section" id="heroSection">
+        <div class="hero-content">
+            <h1 class="title">Constellations</h1>
+            <p class="sub-title">A vous de relier les étoiles pour découvrir les constellations qui s'y cachent.</p>
+        </div>
+    </section>
 
-    <div class="links">
-<!--        <span class="number">01</span>-->
-<!--        <span class="separator">—</span>-->
-        <a class="link-name" href="constellation/01-aries.html">Aries</a>
-
-<!--        <span class="number">02</span>-->
-<!--        <span class="separator">—</span>-->
-        <a class="link-name" href="constellation/02-taurus.html">Taurus</a>
-
-<!--        <span class="number">03</span>-->
-<!--        <span class="separator">—</span>-->
-        <a class="link-name" href="constellation/03-gemini.html">Gemini</a>
-        <a class="link-name" href="constellation/04-cancer.html">Cancer</a>
-        <a class="link-name" href="constellation/05-leo.html">Leo</a>
-        <a class="link-name" href="constellation/06-virgo.html">Virgo</a>
-        <a class="link-name" href="constellation/07-libra.html">Libra</a>
-        <a class="link-name" href="constellation/08-scorpio.html">Scorpio</a>
-    </div>
+    <!-- Section Liens : apparaît au scroll -->
+    <section class="links-section" id="linksSection">
+        <div class="links">
+            <h2 class="nvx">Niveaux</h2>
+            <a class="link-name" href="constellation/01-aries.html">Aries</a>
+            <a class="link-name" href="constellation/02-taurus.html">Taurus</a>
+            <a class="link-name" href="constellation/03-gemini.html">Gemini</a>
+            <a class="link-name" href="constellation/04-cancer.html">Cancer</a>
+            <a class="link-name" href="constellation/05-leo.html">Leo</a>
+            <a class="link-name" href="constellation/06-virgo.html">Virgo</a>
+            <a class="link-name" href="constellation/07-libra.html">Libra</a>
+            <a class="link-name" href="constellation/08-scorpio.html">Scorpio</a>
+        </div>
+    </section>
 </main>
 
+<!-- Script 1 : Étoiles de fond -->
 <script>
-    // Génération du fond étoilé
     const starsContainer = document.getElementById('stars-container');
-    const starCount = 150; // Nombre d'étoiles
+    const starCount = 200;
 
     for (let i = 0; i < starCount; i++) {
         const star = document.createElement('div');
         star.className = 'bg-star';
 
-        // Position aléatoire
         const x = Math.random() * 100;
         const y = Math.random() * 100;
-
-        // Taille aléatoire (1px à 4px)
-        const size = Math.random() * 3 + 1;
-
-        // Opacité aléatoire
-        const opacity = Math.random() * 0.6 + 0.2;
-
-        // Durée d'animation aléatoire (scintillement)
+        const size = Math.random() * 2 + 1;
+        const opacity = Math.random() * 0.7 + 0.2;
         const twinkleDuration = Math.random() * 4 + 2;
-        const twinkleDelay = Math.random() * 5;
-
-        // Durée de mouvement aléatoire
+        const twinkleDelay = Math.random() * 3;
         const moveDuration = Math.random() * 20 + 15;
-        const moveDelay = Math.random() * 5;
+        const moveDelay = Math.random() * 4;
 
         star.style.cssText = `
-        left: ${x}%;
-        top: ${y}%;
-        width: ${size}px;
-        height: ${size}px;
-        opacity: ${opacity};
-        animation:
-            twinkle ${twinkleDuration}s ease-in-out ${twinkleDelay}s infinite,
-            float ${moveDuration}s ease-in-out ${moveDelay}s infinite;
-    `;
+            left: ${x}%;
+            top: ${y}%;
+            width: ${size}px;
+            height: ${size}px;
+            opacity: ${opacity};
+            animation:
+                twinkle ${twinkleDuration}s ease-in-out ${twinkleDelay}s infinite,
+                float ${moveDuration}s ease-in-out ${moveDelay}s infinite;
+        `;
 
         starsContainer.appendChild(star);
     }
+
+    starsContainer.classList.add('show');
+</script>
+
+<!-- Script 2 : Effet de scroll -->
+<script>
+    const heroSection = document.getElementById('heroSection');
+    const linksSection = document.getElementById('linksSection');
+
+    window.addEventListener('scroll', () => {
+        const scrollPosition = window.scrollY;
+        const windowHeight = window.innerHeight;
+
+        // Calcul de l'opacité du hero (disparaît progressivement)
+        const heroOpacity = Math.max(0, 1 - (scrollPosition / (windowHeight * 0.5)));
+        heroSection.style.opacity = heroOpacity;
+
+        // Transformation du hero (monte légèrement)
+        heroSection.style.transform = `translateY(-${scrollPosition * 0.5}px)`;
+
+        // Les liens apparaissent quand on commence à scroller
+        if (scrollPosition > windowHeight * 0.2) {
+            linksSection.classList.add('visible');
+        } else {
+            linksSection.classList.remove('visible');
+        }
+    });
 </script>
 </body>
 </html>
