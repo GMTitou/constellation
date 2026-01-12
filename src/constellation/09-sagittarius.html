@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Aries (Bélier)</title>
+    <title>Sagittarius (Sagittaire)</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Ouma+Latin:wght@400;600;800&family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
@@ -15,7 +15,7 @@
 
 <main class="page">
     <!-- ===== TITRE CENTRÉ ===== -->
-    <h1 class="constellation-title">Aries</h1>
+    <h1 class="constellation-title">Sagittarius</h1>
 
     <!-- ===== POPUP (contenu 100% HTML) ===== -->
     <div
@@ -23,9 +23,9 @@
             class="popup"
             role="status"
             aria-live="polite"
-            data-info-text="Le Bélier est une constellation du zodiaque. Elle est reconnaissable par un alignement d'étoiles formant une sorte d'arc. Relie les étoiles dans l'ordre pour reconstruire sa forme."
-            data-success-text="Bravo ! Tu as correctement relié toutes les étoiles du Bélier. Tu peux maintenant passer à la constellation suivante."
-            data-answer-text="Le tracé officiel de la constellation est affiché. Compare-le avec ton dessin."
+            data-info-text="Le Sagittaire est une constellation du zodiaque représentant un archer (centaure) avec son arc. Elle est reconnaissable par sa forme de théière ou d'arc tendu. Relie les étoiles dans l'ordre pour reconstruire sa silhouette."
+            data-success-text="Bravo ! Tu as correctement relié toutes les étoiles du Sagittaire. L'archer céleste tire sa flèche vers le cœur de la Voie lactée."
+            data-answer-text="Le tracé officiel de la constellation du Sagittaire est affiché. Compare-le avec ton dessin et observe la forme de l'arc tendu."
     >
         <div class="row">
             <div style="flex:1">
@@ -53,22 +53,24 @@
             <path id="constellationPath" class="answer" opacity="0"></path>
         </svg>
 
-        <!-- ⭐ ÉTOILES -->
-        <button class="dot" data-n="1" style="left:68.5%; top:20%;"></button>
-        <button class="dot" data-n="2" style="left:61%; top:40%;"></button>
-        <button class="dot" data-n="3" style="left:64%; top:47.5%;"></button>
-        <button class="dot" data-n="4" style="left:64%; top:60%;"></button>
-        <button class="dot" data-n="5" style="left:71%; top:66%;"></button>
-        <button class="dot" data-n="6" style="left:41%; top:45%;"></button>
-        <button class="dot" data-n="7" style="left:31%; top:25%;"></button>
-        <button class="dot" data-n="8" style="left:33%; top:49%;"></button>
-        <button class="dot" data-n="9" style="left:36%; top:55%;"></button>
+        <!-- ⭐ ÉTOILES — SAGITTARIUS -->
+        <button class="dot" data-n="1" style="left:25%; top:25%;"></button>
+        <button class="dot" data-n="2" style="left:35%; top:35%;"></button>
+        <button class="dot" data-n="3" style="left:45%; top:28%;"></button>
+        <button class="dot" data-n="4" style="left:52%; top:35%;"></button>
+        <button class="dot" data-n="5" style="left:45%; top:42%;"></button>
+        <button class="dot" data-n="6" style="left:35%; top:50%;"></button>
+        <button class="dot" data-n="7" style="left:28%; top:58%;"></button>
+        <button class="dot" data-n="8" style="left:38%; top:65%;"></button>
+        <button class="dot" data-n="9" style="left:60%; top:45%;"></button>
+        <button class="dot" data-n="10" style="left:68%; top:38%;"></button>
+        <button class="dot" data-n="11" style="left:75%; top:32%;"></button>
     </div>
 </main>
 
 <!-- ===== BANNIÈRE DE NAVIGATION (FIXÉE EN BAS) ===== -->
 <div class="navbar">
-    <a class="nav-btn back-btn" href="../index.html">← Menu</a>
+    <a class="nav-btn back-btn" href="08-scorpio.html">← Scorpio</a>
 
     <div class="nav-actions">
         <button id="undo" class="nav-btn" type="button">Annuler</button>
@@ -86,10 +88,13 @@
         [2, 3],
         [3, 4],
         [4, 5],
-        [2, 6],
+        [5, 6],
         [6, 7],
-        [6, 8],
-        [8, 9],
+        [7, 8],
+        [5, 2],
+        [4, 9],
+        [9, 10],
+        [10, 11],
     ];
 </script>
 
