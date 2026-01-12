@@ -3,21 +3,19 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Scorpio (Scorpion)</title>
-
+    <title>Aries (Bélier)</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Ouma+Latin:wght@400;600;800&family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../styles.css" />
 </head>
 <body>
-
-<!-- ⭐ Fond étoilé (apparaît uniquement quand la constellation est réussie) -->
+<!-- Conteneur des étoiles de fond -->
 <div id="stars-container"></div>
 
 <main class="page">
     <!-- ===== TITRE CENTRÉ ===== -->
-    <h1 class="constellation-title">Scorpio</h1>
+    <h1 class="constellation-title">Aries</h1>
 
     <!-- ===== POPUP (contenu 100% HTML) ===== -->
     <div
@@ -25,9 +23,9 @@
             class="popup"
             role="status"
             aria-live="polite"
-            data-info-text="Le Scorpion est une constellation du zodiaque reconnaissable par sa longue chaîne d'étoiles formant une courbe, représentant le corps et la queue du scorpion. Relie les étoiles dans l'ordre pour reconstruire sa silhouette sinueuse."
-            data-success-text="Bravo ! Tu as correctement relié toutes les étoiles de la constellation du Scorpion. Sa forme allongée est l'une des plus caractéristiques du ciel nocturne."
-            data-answer-text="Le tracé officiel de la constellation du Scorpion est affiché. Compare-le avec ton dessin et observe la courbure de sa queue."
+            data-info-text="Le Bélier est une constellation du zodiaque. Elle est reconnaissable par un alignement d'étoiles formant une sorte d'arc. Relie les étoiles dans l'ordre pour reconstruire sa forme."
+            data-success-text="Bravo ! Tu as correctement relié toutes les étoiles du Bélier. Tu peux maintenant passer à la constellation suivante."
+            data-answer-text="Le tracé officiel de la constellation est affiché. Compare-le avec ton dessin."
     >
         <div class="row">
             <div style="flex:1">
@@ -55,22 +53,16 @@
             <path id="constellationPath" class="answer" opacity="0"></path>
         </svg>
 
-        <!-- ⭐ ÉTOILES — SCORPIO -->
-        <button class="dot" data-n="1" style="left:73%; top:10%;"></button>
-        <button class="dot" data-n="2" style="left:63%; top:23%;"></button>
-        <button class="dot" data-n="3" style="left:68%; top:21.5%;"></button>
-        <button class="dot" data-n="4" style="left:80%; top:19.5%;"></button>
-        <button class="dot" data-n="5" style="left:80%; top:28%;"></button>
-        <button class="dot" data-n="6" style="left:57%; top:30%;"></button>
-        <button class="dot" data-n="7" style="left:44%; top:55%;"></button>
-        <button class="dot" data-n="8" style="left:42%; top:62%;"></button>
-        <button class="dot" data-n="9" style="left:27%; top:59.5%;"></button>
-        <button class="dot" data-n="10" style="left:23%; top:58.7%;"></button>
-        <button class="dot" data-n="11" style="left:18%; top:68%;"></button>
-        <button class="dot" data-n="12" style="left:17%; top:75%;"></button>
-        <button class="dot" data-n="13" style="left:25%; top:83%;"></button>
-        <button class="dot" data-n="14" style="left:37%; top:86%;"></button>
-        <button class="dot" data-n="15" style="left:50%; top:85%;"></button>
+        <!-- ⭐ ÉTOILES -->
+        <button class="dot" data-n="1" style="left:68.5%; top:20%;"></button>
+        <button class="dot" data-n="2" style="left:61%; top:40%;"></button>
+        <button class="dot" data-n="3" style="left:64%; top:47.5%;"></button>
+        <button class="dot" data-n="4" style="left:64%; top:60%;"></button>
+        <button class="dot" data-n="5" style="left:71%; top:66%;"></button>
+        <button class="dot" data-n="6" style="left:41%; top:45%;"></button>
+        <button class="dot" data-n="7" style="left:31%; top:25%;"></button>
+        <button class="dot" data-n="8" style="left:33%; top:49%;"></button>
+        <button class="dot" data-n="9" style="left:36%; top:55%;"></button>
     </div>
 </main>
 
@@ -84,7 +76,7 @@
         <button id="toggleAnswer" class="nav-btn" type="button">Afficher la constellation</button>
     </div>
 
-    <a class="nav-btn next-btn" href="09-sagittarius.html">Suivant →</a>
+    <a class="nav-btn next-btn" href="10-capricorn.html">Suivant →</a>
 </div>
 
 <!-- ===== CONFIG DES SEGMENTS (LOGIQUE UNIQUEMENT) ===== -->
@@ -93,20 +85,11 @@
         [1, 2],
         [2, 3],
         [3, 4],
-        [4, 3],
-        [3, 2],
-        [2, 5],
-        [5, 2],
+        [4, 5],
         [2, 6],
         [6, 7],
-        [7, 8],
+        [6, 8],
         [8, 9],
-        [9, 10],
-        [10, 11],
-        [11, 12],
-        [12, 13],
-        [13, 14],
-        [14, 15],
     ];
 </script>
 
