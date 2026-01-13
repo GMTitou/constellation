@@ -43,28 +43,45 @@
         </div>
     </div>
 
-    <!-- ===== BOARD (zone de jeu) ===== -->
-    <div class="board" data-mode="free">
-        <svg
-                class="overlay"
-                viewBox="0 0 1000 1000"
-                preserveAspectRatio="none"
-        >
-            <path id="playerPath"></path>
-            <path id="constellationPath" class="answer" opacity="0"></path>
-        </svg>
+    <!-- ===== NAVIGATION LATÉRALE + BOARD ===== -->
+    <div class="board-container">
+        <!-- Flèche Précédent -->
+        <a href="04-cancer.html" class="arrow-nav arrow-prev" aria-label="Constellation précédente">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+        </a>
 
-        <!-- ⭐ ÉTOILES — LION -->
-        <button class="dot" data-n="1" style="left:90%; top:20%;"></button>
-        <button class="dot" data-n="2" style="left:80%; top:18%;"></button>
-        <button class="dot" data-n="3" style="left:74%; top:14%;"></button>
-        <button class="dot" data-n="4" style="left:60%; top:17%;"></button>
-        <button class="dot" data-n="5" style="left:57.5%; top:30%;"></button>
-        <button class="dot" data-n="6" style="left:35.83%; top:26.66%;"></button>
-        <button class="dot" data-n="7" style="left:25%; top:25%;"></button>
-        <button class="dot" data-n="8" style="left:10%; top:50%;"></button>
-        <button class="dot" data-n="9" style="left:30%; top:47%;"></button>
-        <button class="dot" data-n="10" style="left:62%; top:60%;"></button>
+        <!-- Zone de jeu -->
+        <div class="board" data-mode="free">
+            <svg
+                    class="overlay"
+                    viewBox="0 0 1000 1000"
+                    preserveAspectRatio="none"
+            >
+                <path id="playerPath"></path>
+                <path id="constellationPath" class="answer" opacity="0"></path>
+            </svg>
+
+            <!-- ⭐ ÉTOILES — LION -->
+            <button class="dot" data-n="1" style="left:90%; top:20%;"></button>
+            <button class="dot" data-n="2" style="left:80%; top:18%;"></button>
+            <button class="dot" data-n="3" style="left:74%; top:14%;"></button>
+            <button class="dot" data-n="4" style="left:60%; top:17%;"></button>
+            <button class="dot" data-n="5" style="left:57.5%; top:30%;"></button>
+            <button class="dot" data-n="6" style="left:35.83%; top:26.66%;"></button>
+            <button class="dot" data-n="7" style="left:25%; top:25%;"></button>
+            <button class="dot" data-n="8" style="left:10%; top:50%;"></button>
+            <button class="dot" data-n="9" style="left:30%; top:47%;"></button>
+            <button class="dot" data-n="10" style="left:62%; top:60%;"></button>
+        </div>
+
+        <!-- Flèche Suivant -->
+        <a href="06-virgo.html" class="arrow-nav arrow-next" aria-label="Constellation suivante">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+        </a>
     </div>
 </main>
 
@@ -78,7 +95,7 @@
         <button id="toggleAnswer" class="nav-btn" type="button">Afficher la constellation</button>
     </div>
 
-    <a class="nav-btn next-btn" href="06-virgo.html">Suivant →</a>
+    <div class="nav-placeholder"></div>
 </div>
 
 <!-- ===== CONFIG DES SEGMENTS — LION ===== -->

@@ -369,17 +369,15 @@ body{
     width:1px;
     height:1px;
 
-    font-size: 14px;
+    /* ✅ Numéros cachés par défaut */
+    font-size: 0;
     font-weight: 600;
-    color: rgba(255,255,255,0.85);
-    text-shadow:
-            0 0 4px rgba(0,0,0,0.8),
-            0 1px 2px rgba(0,0,0,0.6);
+    color: transparent;
+    text-shadow: none;
     white-space: nowrap;
     line-height: 1;
     overflow: visible;
     text-align: left;
-
     text-indent: 18px;
 }
 
@@ -404,10 +402,7 @@ body{
 }
 
 .dot:hover{
-    color: rgba(255,255,255,1);
-    text-shadow:
-            0 0 6px rgba(255,255,255),
-            0 1px 2px rgba(0,0,0,0.8);
+    /* Pas de changement de couleur au hover si les numéros sont cachés */
 }
 
 .dot.connected::before{
@@ -424,6 +419,30 @@ body{
     background:#fff;
     outline: 3px solid #fff;
     box-shadow: 0 0 18px rgba(255,255,255);
+}
+
+/* =========================
+   NUMÉROS VISIBLES APRÈS 3 ERREURS
+========================= */
+
+.board.show-numbers .dot {
+    font-size: 16px;
+    font-weight: 800;
+    color: #ffffff;
+    text-shadow:
+            0 0 12px rgba(0, 0, 0, 1),
+            0 0 8px rgba(0, 0, 0, 0.9),
+            0 2px 6px rgba(0, 0, 0, 0.8),
+            0 0 3px rgba(255, 255, 255, 0.5);
+    letter-spacing: 0.5px;
+}
+
+.board.show-numbers .dot:hover {
+    color: #ffeb3b;
+    text-shadow:
+            0 0 16px rgba(255, 235, 59, 0.9),
+            0 0 12px rgba(0, 0, 0, 1),
+            0 2px 8px rgba(0, 0, 0, 0.9);
 }
 
 /* =========================
@@ -537,4 +556,172 @@ button:hover{
     25%{ transform: translate(10px, -10px); }
     50%{ transform: translate(-5px, 5px); }
     75%{ transform: translate(-10px, -5px); }
+}
+
+/* =========================
+   NAVIGATION LATÉRALE (FLÈCHES)
+========================= */
+
+.board-container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 40px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.arrow-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    color: rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    flex-shrink: 0;
+    margin-top: 30%;
+}
+
+.arrow-nav svg {
+    width: 40px;
+    height: 40px;
+    stroke-width: 3;
+}
+
+.arrow-nav:hover {
+    color: rgba(255, 255, 255, 1);
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+.arrow-prev:hover {
+    transform: scale(1.1) translateX(-5px);
+}
+
+.arrow-next:hover {
+    transform: scale(1.1) translateX(5px);
+}
+
+/* Ajustement pour la grille de navigation */
+.navbar {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 20px;
+}
+
+.nav-placeholder {
+    grid-column: 3;
+    width: 80px; /* Même largeur que back-btn pour équilibrer */
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .board-container {
+        gap: 20px;
+    }
+
+    .arrow-nav {
+        width: 60px;
+        height: 60px;
+    }
+
+    .arrow-nav svg {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .board-container {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .arrow-nav {
+        width: 70px;
+        height: 70px;
+    }
+
+    .arrow-prev {
+        order: 2; /* Board en premier */
+    }
+
+    .board {
+        order: 1;
+    }
+
+    .arrow-next {
+        order: 3;
+    }
+
+    /* Rotation des flèches en mode mobile */
+    .arrow-prev svg {
+        transform: rotate(90deg);
+    }
+
+    .arrow-next svg {
+        transform: rotate(90deg);
+    }
+
+    .navbar {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto;
+        gap: 12px;
+    }
+
+    .back-btn {
+        grid-column: 1;
+        grid-row: 1;
+        justify-self: center;
+    }
+
+    .nav-actions {
+        grid-column: 1;
+        grid-row: 2;
+        justify-content: center;
+        gap: 16px;
+    }
+
+    .nav-placeholder {
+        display: none;
+    }
+}
+
+/* =========================
+   NUMÉROS DES ÉTOILES (APRÈS 3 ERREURS)
+========================= */
+
+.dot {
+    /* Le numéro est caché par défaut */
+    color: transparent;
+    text-indent: 0;
+}
+
+/* ✅ Afficher les numéros après 3 erreurs */
+.board.show-numbers .dot {
+    color: rgba(255, 255, 255, 0.9);
+    text-indent: 18px;
+    font-size: 13px;
+    font-weight: 700;
+    text-shadow:
+            0 0 8px rgba(0, 0, 0, 0.9),
+            0 2px 4px rgba(0, 0, 0, 0.8),
+            0 0 2px rgba(255, 255, 255, 0.3);
+}
+
+.board.show-numbers .dot:hover {
+    color: rgba(255, 255, 255, 1);
+    text-shadow:
+            0 0 10px rgba(255, 255, 255, 0.8),
+            0 2px 4px rgba(0, 0, 0, 0.9);
 }

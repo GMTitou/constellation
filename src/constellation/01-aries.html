@@ -42,24 +42,41 @@
         </div>
     </div>
 
-    <!-- ===== BOARD (zone de jeu) ===== -->
-    <div class="board" data-mode="free">
-        <svg
-                class="overlay"
-                viewBox="0 0 1000 1000"
-                preserveAspectRatio="none"
-        >
-            <path id="playerPath"></path>
-            <path id="constellationPath" class="answer" opacity="0"></path>
-        </svg>
+    <!-- ===== NAVIGATION LATÉRALE + BOARD ===== -->
+    <div class="board-container">
+        <!-- Flèche Précédent (retour au Menu) -->
+        <a href="../index.html" class="arrow-nav arrow-prev" aria-label="Retour au menu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+        </a>
 
-        <!-- ⭐ ÉTOILES -->
-        <button class="dot" data-n="1" style="left:10%; top:70%;"></button>
-        <button class="dot" data-n="2" style="left:20%; top:62%;"></button>
-        <button class="dot" data-n="3" style="left:70%; top:45%;"></button>
-        <button class="dot" data-n="4" style="left:25%; top:25%;"></button>
-        <button class="dot" data-n="6" style="left:85%; top:60%;"></button>
-        <button class="dot" data-n="7" style="left:85%; top:65%;"></button>
+        <!-- Zone de jeu -->
+        <div class="board" data-mode="free">
+            <svg
+                    class="overlay"
+                    viewBox="0 0 1000 1000"
+                    preserveAspectRatio="none"
+            >
+                <path id="playerPath"></path>
+                <path id="constellationPath" class="answer" opacity="0"></path>
+            </svg>
+
+            <!-- ⭐ ÉTOILES — ARIES -->
+            <button class="dot" data-n="1" style="left:10%; top:70%;"></button>
+            <button class="dot" data-n="2" style="left:20%; top:62%;"></button>
+            <button class="dot" data-n="3" style="left:70%; top:45%;"></button>
+            <button class="dot" data-n="4" style="left:25%; top:25%;"></button>
+            <button class="dot" data-n="6" style="left:85%; top:60%;"></button>
+            <button class="dot" data-n="7" style="left:85%; top:65%;"></button>
+        </div>
+
+        <!-- Flèche Suivant -->
+        <a href="02-taurus.html" class="arrow-nav arrow-next" aria-label="Constellation suivante">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+        </a>
     </div>
 </main>
 
@@ -73,7 +90,7 @@
         <button id="toggleAnswer" class="nav-btn" type="button">Afficher la constellation</button>
     </div>
 
-    <a class="nav-btn next-btn" href="02-taurus.html">Suivant →</a>
+    <div class="nav-placeholder"></div>
 </div>
 
 <!-- ===== CONFIG DES SEGMENTS (LOGIQUE UNIQUEMENT) ===== -->

@@ -42,34 +42,51 @@
         </div>
     </div>
 
-    <!-- ===== BOARD (zone de jeu) ===== -->
-    <div class="board" data-mode="free">
-        <svg
-                class="overlay"
-                viewBox="0 0 1000 1000"
-                preserveAspectRatio="none"
-        >
-            <path id="playerPath"></path>
-            <path id="constellationPath" class="answer" opacity="0"></path>
-        </svg>
+    <!-- ===== NAVIGATION LATÉRALE + BOARD ===== -->
+    <div class="board-container">
+        <!-- Flèche Précédent -->
+        <a href="10-capricorn.html" class="arrow-nav arrow-prev" aria-label="Constellation précédente">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+        </a>
 
-        <!-- ⭐ ÉTOILES — AQUARIUS -->
-        <button class="dot" data-n="1" style="left:75%; top:30%;"></button>
-        <button class="dot" data-n="2" style="left:60%; top:20%;"></button>
-        <button class="dot" data-n="3" style="left:50%; top:24%;"></button>
-        <button class="dot" data-n="4" style="left:45%; top:20%;"></button>
-        <button class="dot" data-n="5" style="left:43%; top:20%;"></button>
-        <button class="dot" data-n="6" style="left:38%; top:35%;"></button>
-        <button class="dot" data-n="7" style="left:40%; top:50%;"></button>
-        <button class="dot" data-n="8" style="left:36%; top:54%;"></button>
-        <button class="dot" data-n="9" style="left:32%; top:30%;"></button>
-        <button class="dot" data-n="10" style="left:30%; top:37%;"></button>
+        <!-- Zone de jeu -->
+        <div class="board" data-mode="free">
+            <svg
+                    class="overlay"
+                    viewBox="0 0 1000 1000"
+                    preserveAspectRatio="none"
+            >
+                <path id="playerPath"></path>
+                <path id="constellationPath" class="answer" opacity="0"></path>
+            </svg>
+
+            <!-- ⭐ ÉTOILES — AQUARIUS -->
+            <button class="dot" data-n="1" style="left:75%; top:30%;"></button>
+            <button class="dot" data-n="2" style="left:60%; top:20%;"></button>
+            <button class="dot" data-n="3" style="left:50%; top:24%;"></button>
+            <button class="dot" data-n="4" style="left:45%; top:20%;"></button>
+            <button class="dot" data-n="5" style="left:43%; top:20%;"></button>
+            <button class="dot" data-n="6" style="left:38%; top:35%;"></button>
+            <button class="dot" data-n="7" style="left:40%; top:50%;"></button>
+            <button class="dot" data-n="8" style="left:36%; top:54%;"></button>
+            <button class="dot" data-n="12" style="left:32%; top:30%;"></button>
+            <button class="dot" data-n="13" style="left:30%; top:37%;"></button>
+        </div>
+
+        <!-- Flèche Suivant -->
+        <a href="12-pisces.html" class="arrow-nav arrow-next" aria-label="Constellation suivante">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+        </a>
     </div>
 </main>
 
 <!-- ===== BANNIÈRE DE NAVIGATION (FIXÉE EN BAS) ===== -->
 <div class="navbar">
-    <a class="nav-btn back-btn" href="10-capricorn.html">← Capricorn</a>
+    <a class="nav-btn back-btn" href="../index.html">← Menu</a>
 
     <div class="nav-actions">
         <button id="undo" class="nav-btn" type="button">Annuler</button>
@@ -77,7 +94,7 @@
         <button id="toggleAnswer" class="nav-btn" type="button">Afficher la constellation</button>
     </div>
 
-    <a class="nav-btn next-btn" href="12-pisces.html">Suivant →</a>
+    <div class="nav-placeholder"></div>
 </div>
 
 <!-- ===== CONFIG DES SEGMENTS (LOGIQUE UNIQUEMENT) ===== -->
@@ -90,8 +107,8 @@
         [5, 6],
         [6, 7],
         [7, 8],
-        [5, 9],
-        [9, 10],
+        [5, 12],
+        [12, 13],
     ];
 </script>
 

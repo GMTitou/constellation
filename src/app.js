@@ -49,6 +49,14 @@
         return [[Number(a), Number(b)]];
     });
 
+    // ✅ Créer un Set de tous les segments valides (non-directionnels)
+    const validSegmentsSet = new Set();
+    requiredRules.forEach((alternatives) => {
+        alternatives.forEach(([a, b]) => {
+            validSegmentsSet.add(segKeyUndirected(a, b));
+        });
+    });
+
     // ===== ÉTOILES (SUR TOUTE LA PAGE) =====
     const clearGlobalStars = () => {
         if (!starsContainer) return;
@@ -134,6 +142,31 @@
     let answerVisible = false;
     let popupLocked = false;
     let starsShown = false;
+    let errorCount = 0; // ✅ Compteur d'erreurs
+
+    // ✅ Initialiser les numéros dans les dots
+    const initDotNumbers = () => {
+        dots.forEach((dot) => {
+            const n = dot.dataset.n;
+            if (n) {
+                dot.textContent = n;
+            }
+        });
+    };
+
+    // ✅ Afficher/masquer les numéros
+    const setNumbersVisible = (visible) => {
+        if (visible) {
+            board.classList.add("show-numbers");
+        } else {
+            board.classList.remove("show-numbers");
+        }
+    };
+
+    // ✅ Vérifier si un segment est valide
+    const isValidSegment = (a, b) => {
+        return validSegmentsSet.has(segKeyUndirected(a, b));
+    };
 
     const updateDotStates = () => {
         dots.forEach((d) => d.classList.remove("selected", "last", "connected"));
@@ -177,8 +210,6 @@
     };
 
     // ✅ Validation : chaque règle doit être satisfaite
-    // - règle obligatoire : le segment doit exister
-    // - règle OU : au moins 1 segment doit exister
     const isCompleted = () => {
         const got = computePlayerSegmentSet();
 
@@ -224,12 +255,33 @@
         }
     };
 
-    // ===== Events =====
     dots.forEach((dot) => {
         dot.addEventListener("click", () => {
             const n = Number(dot.dataset.n);
             if (!n) return;
             if (clicked.length && clicked[clicked.length - 1] === n) return;
+
+            // ✅ Vérifier si c'est une erreur
+            if (clicked.length > 0) {
+                const lastN = clicked[clicked.length - 1];
+                if (!isValidSegment(lastN, n)) {
+                    errorCount++;
+
+                    // ✅ Après 3 erreurs : afficher les numéros ET tout effacer
+                    if (errorCount >= 3) {
+                        setNumbersVisible(true);
+
+                        // ✅ Réinitialiser le tracé pour recommencer
+                        clicked = [];
+                        errorCount = 0; // Reset le compteur pour ne pas redemander
+                        updateDotStates();
+                        updatePlayerPath();
+
+                        // Ne pas continuer le clic actuel
+                        return;
+                    }
+                }
+            }
 
             clicked.push(n);
             updateDotStates();
@@ -266,6 +318,8 @@
         clicked = [];
         popupLocked = false;
         starsShown = false;
+        errorCount = 0; // ✅ Reset erreurs
+        setNumbersVisible(false); // ✅ Masquer les numéros
         hidePopup();
         clearGlobalStars();
         updateDotStates();
@@ -286,6 +340,7 @@
     });
 
     // init
+    initDotNumbers(); // ✅ Initialiser les numéros
     clearGlobalStars();
     setAnswerVisible(false);
     updateDotStates();

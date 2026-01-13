@@ -42,33 +42,50 @@
         </div>
     </div>
 
-    <!-- ===== BOARD (zone de jeu) ===== -->
-    <div class="board" data-mode="free">
-        <svg
-                class="overlay"
-                viewBox="0 0 1000 1000"
-                preserveAspectRatio="none"
-        >
-            <path id="playerPath"></path>
-            <path id="constellationPath" class="answer" opacity="0"></path>
-        </svg>
+    <!-- ===== NAVIGATION LATÉRALE + BOARD ===== -->
+    <div class="board-container">
+        <!-- Flèche Précédent -->
+        <a href="08-scorpio.html" class="arrow-nav arrow-prev" aria-label="Constellation précédente">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+        </a>
 
-        <!-- ⭐ ÉTOILES -->
-        <button class="dot" data-n="1" style="left:68.5%; top:20%;"></button>
-        <button class="dot" data-n="2" style="left:61%; top:40%;"></button>
-        <button class="dot" data-n="3" style="left:64%; top:47.5%;"></button>
-        <button class="dot" data-n="4" style="left:64%; top:60%;"></button>
-        <button class="dot" data-n="5" style="left:71%; top:66%;"></button>
-        <button class="dot" data-n="6" style="left:41%; top:45%;"></button>
-        <button class="dot" data-n="7" style="left:31%; top:25%;"></button>
-        <button class="dot" data-n="8" style="left:33%; top:49%;"></button>
-        <button class="dot" data-n="9" style="left:36%; top:55%;"></button>
+        <!-- Zone de jeu -->
+        <div class="board" data-mode="free">
+            <svg
+                    class="overlay"
+                    viewBox="0 0 1000 1000"
+                    preserveAspectRatio="none"
+            >
+                <path id="playerPath"></path>
+                <path id="constellationPath" class="answer" opacity="0"></path>
+            </svg>
+
+            <!-- ⭐ ÉTOILES — SAGITTARIUS -->
+            <button class="dot" data-n="1" style="left:68.5%; top:20%;"></button>
+            <button class="dot" data-n="2" style="left:61%; top:40%;"></button>
+            <button class="dot" data-n="3" style="left:64%; top:47.5%;"></button>
+            <button class="dot" data-n="4" style="left:64%; top:60%;"></button>
+            <button class="dot" data-n="5" style="left:71%; top:66%;"></button>
+            <button class="dot" data-n="9" style="left:41%; top:45%;"></button>
+            <button class="dot" data-n="10" style="left:31%; top:25%;"></button>
+            <button class="dot" data-n="12" style="left:33%; top:49%;"></button>
+            <button class="dot" data-n="13" style="left:36%; top:55%;"></button>
+        </div>
+
+        <!-- Flèche Suivant -->
+        <a href="10-capricorn.html" class="arrow-nav arrow-next" aria-label="Constellation suivante">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+        </a>
     </div>
 </main>
 
 <!-- ===== BANNIÈRE DE NAVIGATION (FIXÉE EN BAS) ===== -->
 <div class="navbar">
-    <a class="nav-btn back-btn" href="08-scorpio.html">← Scorpio</a>
+    <a class="nav-btn back-btn" href="../index.html">← Menu</a>
 
     <div class="nav-actions">
         <button id="undo" class="nav-btn" type="button">Annuler</button>
@@ -76,7 +93,7 @@
         <button id="toggleAnswer" class="nav-btn" type="button">Afficher la constellation</button>
     </div>
 
-    <a class="nav-btn next-btn" href="10-capricorn.html">Suivant →</a>
+    <div class="nav-placeholder"></div>
 </div>
 
 <!-- ===== CONFIG DES SEGMENTS (LOGIQUE UNIQUEMENT) ===== -->
@@ -86,10 +103,10 @@
         [2, 3],
         [3, 4],
         [4, 5],
-        [2, 6],
-        [6, 7],
-        [6, 8],
-        [8, 9],
+        [2, 9],
+        [9, 10],
+        [9, 12],
+        [12, 13],
     ];
 </script>
 
