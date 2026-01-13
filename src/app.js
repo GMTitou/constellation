@@ -49,7 +49,7 @@
         return [[Number(a), Number(b)]];
     });
 
-    // ✅ Créer un Set de tous les segments valides (non-directionnels)
+    // ✅ Créer un Set de TOUS les segments valides (pour détecter les erreurs)
     const validSegmentsSet = new Set();
     requiredRules.forEach((alternatives) => {
         alternatives.forEach(([a, b]) => {
@@ -142,7 +142,7 @@
     let answerVisible = false;
     let popupLocked = false;
     let starsShown = false;
-    let errorCount = 0; // ✅ Compteur d'erreurs
+    let resetCount = 0; // ✅ Compteur de clics sur "Recommencer"
 
     // ✅ Initialiser les numéros dans les dots
     const initDotNumbers = () => {
@@ -161,11 +161,6 @@
         } else {
             board.classList.remove("show-numbers");
         }
-    };
-
-    // ✅ Vérifier si un segment est valide
-    const isValidSegment = (a, b) => {
-        return validSegmentsSet.has(segKeyUndirected(a, b));
     };
 
     const updateDotStates = () => {
@@ -209,12 +204,22 @@
         return set;
     };
 
-    // ✅ Validation : chaque règle doit être satisfaite
+    // ✅ Validation STRICTE :
+    // 1. Tous les segments requis doivent être présents
+    // 2. AUCUN segment invalide ne doit être tracé
     const isCompleted = () => {
-        const got = computePlayerSegmentSet();
+        const playerSegments = computePlayerSegmentSet();
 
+        // ✅ Vérifier qu'il n'y a AUCUN segment invalide
+        for (const seg of playerSegments) {
+            if (!validSegmentsSet.has(seg)) {
+                return false; // Segment invalide détecté !
+            }
+        }
+
+        // ✅ Vérifier que tous les segments requis sont présents
         for (const alternatives of requiredRules) {
-            const ok = alternatives.some(([a, b]) => got.has(segKeyUndirected(a, b)));
+            const ok = alternatives.some(([a, b]) => playerSegments.has(segKeyUndirected(a, b)));
             if (!ok) return false;
         }
 
@@ -255,33 +260,12 @@
         }
     };
 
+    // ===== Events =====
     dots.forEach((dot) => {
         dot.addEventListener("click", () => {
             const n = Number(dot.dataset.n);
             if (!n) return;
             if (clicked.length && clicked[clicked.length - 1] === n) return;
-
-            // ✅ Vérifier si c'est une erreur
-            if (clicked.length > 0) {
-                const lastN = clicked[clicked.length - 1];
-                if (!isValidSegment(lastN, n)) {
-                    errorCount++;
-
-                    // ✅ Après 3 erreurs : afficher les numéros ET tout effacer
-                    if (errorCount >= 3) {
-                        setNumbersVisible(true);
-
-                        // ✅ Réinitialiser le tracé pour recommencer
-                        clicked = [];
-                        errorCount = 0; // Reset le compteur pour ne pas redemander
-                        updateDotStates();
-                        updatePlayerPath();
-
-                        // Ne pas continuer le clic actuel
-                        return;
-                    }
-                }
-            }
 
             clicked.push(n);
             updateDotStates();
@@ -315,11 +299,17 @@
     });
 
     resetBtn?.addEventListener("click", () => {
+        // ✅ Incrémenter le compteur de reset
+        resetCount++;
+
+        // ✅ Afficher les numéros après 3 clics sur "Recommencer"
+        if (resetCount >= 3) {
+            setNumbersVisible(true);
+        }
+
         clicked = [];
         popupLocked = false;
         starsShown = false;
-        errorCount = 0; // ✅ Reset erreurs
-        setNumbersVisible(false); // ✅ Masquer les numéros
         hidePopup();
         clearGlobalStars();
         updateDotStates();
